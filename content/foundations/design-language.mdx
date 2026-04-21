@@ -1,0 +1,151 @@
+---
+title: "A New Design Language for Enterprise AI"
+summary: "Why enterprise AI needs its own design language, what that language consists of, and how to use it to build systems that are coherent, trustworthy, and scalable."
+order: 2
+---
+
+## The Problem With the Current State
+
+Enterprise teams today often lack a common vocabulary for discussing how intelligence should behave inside products. Without that shared language, design, product, and engineering conversations remain fragmented. Teams talk about features, models, and interfaces — but not about confidence, review, escalation, orchestration, reversibility, or the conditions under which AI should recommend, guide, or act.
+
+The result is predictable: products become collections of AI features rather than coherent systems. Each team invents its own interaction model. Chat is overused as a default container for work that would be better expressed through structured workflows, comparison surfaces, or proactive signals. Trust and governance are treated as afterthoughts rather than first-class design concerns.
+
+This initiative exists to solve that problem.
+
+## What a Design Language Provides
+
+A design language for enterprise AI provides three things:
+
+**Shared vocabulary.** A common set of terms — jobs, pattern families, modalities, surfaces, trust levels, autonomy levels — that allows design, product, and engineering to reason together about how an AI system should behave.
+
+**Structural principles.** Rules for how the layers relate to each other, which comes first, and what failure looks like when a layer is missing or confused with an adjacent one.
+
+**Reusable patterns.** A library of interaction structures that teams can apply, adapt, and extend across products, surfaces, and modalities — without reinventing from scratch.
+
+## Why Enterprise AI Is Different
+
+Consumer AI products can tolerate vagueness. An answer that is approximately right is often good enough. A chatbot that fails gracefully is frustrating but not catastrophic.
+
+Enterprise AI operates under different conditions:
+
+- **Consequentiality.** Enterprise AI can influence hiring, credit decisions, clinical outcomes, customer relationships, and regulatory filings. Wrong answers have real costs.
+- **Accountability.** In regulated industries, organizations must be able to show what the system did, why it did it, and who authorized it.
+- **Workflow integration.** Enterprise AI must fit into existing workflows, systems, and approval chains — not replace them with a single assistant window.
+- **Multi-actor complexity.** Enterprise work involves teams, roles, permissions, and escalation paths that consumer AI products never need to consider.
+- **Durability.** Enterprise products must function consistently across hundreds of edge cases, not just the happy path.
+
+## The Seven Layers
+
+The design language is built from seven interlocking layers, each of which answers a distinct question:
+
+### 1. Jobs
+*What is the user actually trying to accomplish?*
+
+A job is the underlying progress the user is trying to make. It is independent of the interface. Jobs include: ask, find, understand, decide, create, execute, monitor, remember, collaborate, recover.
+
+### 2. Pattern Families
+*What kind of AI interaction supports that work?*
+
+Pattern families define the recurring interaction structures through which AI supports user jobs. They sit between work intent and interface implementation. Families include: answer, recommendation, creation, workflow assistance, monitoring and signal, governance and control, recovery and continuity.
+
+### 3. Modalities
+*In what form should intelligence be expressed?*
+
+Modality is the perceptual and expressive form through which intelligence is delivered. Modalities include: text, voice, data visualization, vision/image, code, multimodal, ambient, and spatial.
+
+### 4. Surfaces
+*Where should intelligence appear?*
+
+A surface is the interface context in which AI becomes visible, interactive, or actionable. Surfaces include: inline, sidebar, overlay, workspace, feed/stream, notification, ambient layer, and spatial environment.
+
+### 5. Trust & Governance
+*Why should users and organizations trust this system?*
+
+Trust is the user-facing experience of justified confidence. Governance is the organizational and technical system that makes that confidence warranted and durable.
+
+### 6. Autonomy
+*How much is the system allowed to do?*
+
+Autonomy is a designable gradient from informing to executing. Levels range from inform-only through recommend, prepare, execute with approval, and execute within policy.
+
+### 7. Context
+*What does the system need to know about this situation?*
+
+Context is the situational substrate that turns a general model into a domain-capable system. It includes user identity, role, workflow state, entity context, temporal signals, and organizational policy.
+
+## The Core Synthesis
+
+These seven layers work together:
+
+> **Enterprise AI design = Job × Pattern Family × Modality × Surface, shaped by Context, calibrated by Autonomy, and bounded by Trust and Governance.**
+
+This is not a formula for generating AI features. It is a checklist for ensuring that every enterprise AI experience has been intentionally designed at every layer — and that no layer has been left implicit, confused with another, or resolved by default.
+
+## Reading Sequence
+
+The recommended order of design:
+
+1. **Start with Job** — define the work before the interface
+2. **Choose Pattern Family** — define the interaction logic
+3. **Select Modality** — define the expressive form
+4. **Choose Surface** — define where the intelligence appears
+5. **Inject Context** — ensure the system understands the situation
+6. **Calibrate Autonomy** — make the system's agency explicit
+7. **Apply Trust & Governance** — ensure the behavior is understandable and controllable
+
+In short: work first, then interaction logic, then form and placement, then situational shaping, then agency, then controls.
+
+## How the Layers Work at Runtime
+
+At runtime, the framework is not just a stack. Context helps the system interpret the moment. That interpretation influences the inferred job and the chosen interaction family. The result is expressed through one or more modalities on one or more surfaces. Autonomy determines whether the system only informs, recommends, prepares, guides, or acts. Trust and Governance determine whether the behavior must explain itself, request approval, log events, or escalate.
+
+This means the architecture should be visualized not only as a layered stack, but also as a decision flow and as a runtime loop.
+
+## A Worked Example
+
+**Prompt:** *"Who should I call today?"*
+
+| Layer | Design decision |
+|---|---|
+| **Job** | Decide — supported by Understand and Find |
+| **Pattern Family** | Recommendation + Retrieval + Explanation |
+| **Modality** | Ranked visual summary with concise rationale |
+| **Surface** | Sidebar in active CRM workflow, or workspace for deep review |
+| **Context** | Book scope, recent engagement, service issues, prior outreach, timing |
+| **Autonomy** | Recommend or Prepare — not Execute |
+| **Trust & Governance** | Evidence visible, rejection paths available, appropriate logging if action follows |
+
+This is why the framework is more useful than a generic copilot label. It turns one vague AI feature into a clear operating model.
+
+## Common Architecture Failure Modes
+
+- **Chat monoculture:** every workflow is forced into a prompt-response shell
+- **Layer collapse:** teams confuse jobs with patterns, modalities with surfaces, or trust with autonomy
+- **Context blindness:** the system sounds intelligent but acts generically
+- **Autonomy ambiguity:** users cannot tell whether the system is informing, recommending, preparing, or acting
+- **Trust theater:** the product adds assurance signals without real evidence, controls, or governance
+- **Surface monotony:** all AI behaviors appear in the same container regardless of urgency, depth, or consequence
+
+## Cross-Library Anti-Patterns
+
+These are the most common ways that enterprise AI systems fail at the library level — not individual patterns failing, but the whole library being applied incorrectly:
+
+1. **Chat as a default container for everything.** This hides differences between answering, comparing, drafting, approving, tracking, and recovering.
+2. **Opaque confidence.** The system sounds polished but gives the user no way to judge whether it is well grounded.
+3. **Recommendation-action collapse.** A recommendation pattern silently becomes an execution pattern.
+4. **Invisible AI influence.** Users cannot tell what was AI-generated, AI-ranked, or AI-prefilled.
+5. **No recovery path.** The interface handles success but not uncertainty or ambiguity.
+6. **No continuity model.** Tasks, drafts, memory, and approvals disappear between sessions.
+7. **Governance as an afterthought.** Evidence, approval, and audit are bolted on after the interaction is already designed.
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- Microsoft Research — Guidelines for Human-AI Interaction — https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf
+- Microsoft HAX Toolkit — https://www.microsoft.com/en-us/haxtoolkit/
+- Google PAIR — People + AI Guidebook — https://pair.withgoogle.com/guidebook/
+- OpenAI — Model Spec — https://model-spec.openai.com/2025-02-12.html
+- Anthropic — Building Effective Agents — https://www.anthropic.com/research/building-effective-agents
+- IBM Carbon Design System — https://carbondesignsystem.com/
+- Apple Human Interface Guidelines — Designing for visionOS — https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos
+- Fluent 2 — https://fluent2.microsoft.design/

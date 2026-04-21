@@ -1,0 +1,138 @@
+---
+title: "Trust & Governance"
+layer: "trust"
+summary: "The Trust and Governance model defines the safeguards, controls, and accountability structures that make AI behavior reliable and governable. It answers: Why should users and organizations trust this system?"
+order: 5
+---
+
+## A. Definition
+
+The Trust and Governance Model defines the safeguards, controls, explanations, oversight mechanisms, and accountability structures that make AI behavior reliable and governable in real use. It answers the question: **Why should the user and the organization trust this system, and how is that trust controlled?**
+
+Trust is the user-facing experience of justified confidence. Governance is the organizational and technical system that makes that confidence warranted and durable.
+
+## B. Why It Matters
+
+Enterprise AI breaks not only when it is inaccurate, but when users cannot tell why it behaved in a certain way, what it is allowed to do, what data it used, how to challenge it, or who is accountable when it fails.
+
+This is why trust cannot be reduced to a confidence score or reassurance badge. NIST, Microsoft, OpenAI, Anthropic, and Google all treat trust as a system of behavior, controls, evaluation, privacy, security, and operating process.
+
+Enterprise AI rarely fails because the model is "not smart enough." It usually fails because users cannot tell when to rely on it, what evidence supports it, whether it is authorized to act, what can be edited or reversed, or who remains accountable when something goes wrong.
+
+## C. What Belongs Here
+
+- Confidence visibility
+- Evidence and grounding
+- Permissions
+- Reviewability
+- Editability
+- Reversibility
+- Approval checkpoints
+- Auditability
+- Escalation and human handoff
+- Fallback behavior
+- Compliance-aware interaction patterns
+- User-facing safeguards and organizational operating discipline
+
+## D. What Does Not Belong Here
+
+- The user's job itself or the interaction pattern itself
+- A safety filter alone, a privacy notice alone, or a confidence badge alone
+- Generic product claims that the AI is trustworthy without inspectable support
+
+## E. The Eleven Trust Dimensions
+
+**1. Confidence visibility** — showing how much caution or reliance is appropriate. Use structured support labels such as "verified," "partially grounded," "weakly supported," or "evidence incomplete" rather than decorative percentages. Poorly calibrated confidence cues can distort reliance.
+
+**2. Evidence and grounding** — answering: what is this output based on? Grounding can include policy text, transaction history, CRM events, retrieved documents, linked calculations, or validated business rules. Separate narrative from proof.
+
+**3. Permissions** — defining what the AI is allowed to see, suggest, change, or execute. Permissions should be task-scoped, not just identity-scoped. A user may be allowed to view a client record but not to send external communication or modify a regulated record without further authorization.
+
+**4. Reviewability** — the system's work can be inspected before it matters. This includes previewing drafts, inspecting evidence, comparing alternatives, checking what changed, and verifying intended downstream effect before any consequential step is committed.
+
+**5. Editability** — users can change the AI's work without fighting the system. AI output is often a first pass rather than a final artifact. Making outputs editable preserves expert judgment and keeps the system from becoming brittle.
+
+**6. Reversibility** — what can be undone, overridden, reversed, or safely halted. The more autonomous the action, the stronger the reversal design must be. Discarding a draft and reversing an external action are different classes of control.
+
+**7. Approval checkpoints** — explicit moments where the system must pause for human authorization. Place these at moments of material consequence: external communication, financial movement, permanent system-of-record updates, regulatory filing, or policy exception handling.
+
+**8. Auditability** — the system leaves behind a trace that supports explanation, challenge, investigation, and supervisory review. Logs should capture AI involvement: the model used, context supplied, evidence retrieved, output produced, edits made, approvals given, and final action taken.
+
+**9. Escalation and human handoff** — the structured path from AI to a person, team, or alternate workflow when the system should not proceed alone. Good handoff preserves context so the human does not need to reconstruct the case from scratch.
+
+**10. Fallback behavior** — what happens when the system cannot answer safely, cannot find adequate evidence, detects low confidence, or reaches a policy boundary. Good fallback is specific and actionable: it states what failed, what remains uncertain, what the user can do next, and whether the workflow has paused or rerouted safely.
+
+**11. Compliance-aware interaction patterns** — anticipating regulated obligations in the design itself rather than treating compliance as a post-design patch. Examples include evidence drawers for consequential recommendations, disclosure banners, immutable audit snapshots, structured approval states, explanation links, and AI literacy cues.
+
+## F. Risk-Based Design
+
+Not every AI interaction carries the same risk. Controls should scale with risk:
+
+| Use case type | Governance posture |
+|---|---|
+| Informational answers | Source attribution, freshness visibility |
+| Decision support | Rationale visible, challenge path available |
+| Consequential recommendations | Approval checkpoint, audit trail required |
+| Autonomous execution | Full governance stack, reversibility plan |
+
+NIST recommends managing AI risk according to impact, likelihood, and risk tolerance. The EU AI Act uses a risk-based structure with stronger obligations as consequence increases.
+
+## G. Trust Rules by Autonomy Level
+
+| Autonomy level | What the system does | Trust requirements |
+|---|---|---|
+| Inform | Answer and explain | Source attribution, freshness, challenge path |
+| Recommend | Suggest options or priority | Rationale, evidence, dismissal controls |
+| Prepare | Draft and prefill | Editability, AI presence marking, source visibility |
+| Guide | Lead through steps | Step visibility, skip controls, pause/resume |
+| Execute with approval | Act after human sign-off | Approval checkpoint, scope disclosure, logging |
+| Execute within policy | Act autonomously within bounds | Permission scope, continuous logging, incident response |
+
+## H. Enterprise Examples
+
+- **Healthcare operations:** Reviewable triage recommendation with cited evidence and supervisor override
+- **Legal workflow:** Draft clause change tracked with provenance and approval history
+- **Support automation:** Policy-bound action with full event logging and rollback
+- **Internal knowledge search:** Answer linked to source documents with permission filtering
+- **Agentic workflow:** Bounded tool use with explicit approvals for external consequences
+
+## I. Private Banking Translation
+
+Private banking makes trust and governance unavoidable because customer knowledge, recommendation quality, suitability-related facts, supervisory review, and sensitive communications all carry consequence.
+
+Useful controls include:
+- Evidence-backed prioritization signals
+- Editable drafts before anything becomes client-facing
+- Supervisor review for higher-risk steps
+- Role-aware permissions
+- Audit trails that show what recommendation was shown and what was approved
+- Enterprise data controls for household, portfolio, and communication records
+
+In this domain, trust is not only about whether the AI seems right. It is also about whether the organization can show how the system behaved, why it behaved that way, and whether the resulting workflow stayed inside supervisory and policy boundaries.
+
+**Banking regulatory context:** The Federal Reserve's SR 11-7 remains foundational in framing model risk around governance, validation, effective challenge, and materiality. As of April 2026, revised interagency model risk guidance from the OCC and Federal Reserve stresses a risk-based approach — but explicitly notes that generative AI and agentic AI are outside the scope of that revised guidance for now. Existing banking guidance is relevant but does not fully solve trust and governance design for modern generative or agentic systems.
+
+## J. Failure Modes
+
+- **Trust theater:** badges or confidence numbers are shown without real evidence, controls, or accountability
+- **Policy without usability:** rules exist internally but the user cannot work with them in the interface
+- **Usability without governance:** the system feels smooth, but there is no release discipline, logging, or incident response
+- **One-size-fits-all review:** every output gets the same control burden regardless of risk and consequence
+- **False precision:** exact confidence numbers shown without calibrated meaning
+- **Grounding theater:** sources are attached, but they do not actually support the claim
+- **Hidden authority:** user cannot tell whether the system is informing, recommending, or acting
+- **Audit gaps:** organization logs user clicks but not AI contribution, retrieved context, or approvals
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- NIST — Generative AI Profile, NIST AI 600-1 — https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
+- OECD AI Principles — https://www.oecd.org/en/topics/ai-principles.html
+- EU AI Act — Article 13: Transparency — https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-13
+- EU AI Act — Article 14: Human oversight — https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-14
+- Microsoft — Responsible AI Standard v2 — https://blogs.microsoft.com/wp-content/uploads/prod/sites/5/2022/06/Microsoft-Responsible-AI-Standard-v2-General-Requirements-3.pdf
+- OpenAI — Model Spec — https://model-spec.openai.com/2025-02-12.html
+- Anthropic — Constitution — https://www.anthropic.com/constitution
+- Anthropic — Responsible Scaling Policy — https://www.anthropic.com/news/responsible-scaling-policy-v3
+- Google Cloud — Responsible AI — https://cloud.google.com/responsible-ai
+- Federal Reserve — SR 11-7: Model Risk Management — https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm

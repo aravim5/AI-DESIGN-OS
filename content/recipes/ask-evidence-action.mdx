@@ -1,0 +1,77 @@
+---
+title: "Ask → Evidence → Action"
+summary: "The user asks a question, receives a grounded answer with supporting evidence, and is offered a clear next action — all in one connected flow."
+workflowShape: "Ask → Evidence-Backed Answer → Suggested Action → Commit or Dismiss"
+patterns: ["quick-answer", "evidence-backed-answer", "contextual-assistant"]
+jobs: ["ask", "understand", "decide"]
+surfaces: ["sidebar", "workspace", "inline"]
+trustLevel: 2
+autonomyLevel: 2
+status: "stable"
+---
+
+## Purpose
+
+Use this recipe when a user needs an answer that may immediately lead to a lightweight next step. The system should not stop at explanation when an obvious action is available — but it should keep the action clearly separable from the answer.
+
+This is the most common enterprise AI composition and the right starting point for most knowledge-work surfaces.
+
+## Workflow Shape
+
+```
+Ask → Evidence-Backed Answer → Suggested Action → Commit or Dismiss
+```
+
+## Primary Patterns
+
+1. **Quick Answer** — for fast orientation before depth
+2. **Evidence-Backed Answer** — for the grounded explanation that follows
+3. **Contextual Assistant** — for ongoing conversation within the same context
+
+## Inputs Required
+
+- User question or intent signal
+- Current record, entity, or workflow context
+- Relevant data or source records
+- Role and permission context
+
+## Outputs
+
+- Grounded answer with evidence
+- One or more suggested next actions
+- Optional: action committed or dismissed, with log entry
+
+## Autonomy Level
+
+**Level 2 — Recommend.** The system surfaces an answer and suggests an action. The user decides whether to take it. The system does not act without explicit commitment.
+
+## Trust Requirements
+
+- Evidence must be traceable — user should be able to inspect sources
+- Suggested action must show its basis — not just "what to do" but "why"
+- Permission check must occur before action is offered
+- Action commitment must be clearly distinct from receiving the answer
+
+## Example Scenario
+
+A relationship manager asks: *"Is this client ready for a portfolio review conversation?"*
+
+The system returns a grounded answer: engagement signals, recent activity, open service items, and portfolio drift summary. It then surfaces a suggested action: *"Draft a meeting request"* — which the manager can commit to, edit, or dismiss.
+
+## Modality and Surface Variants
+
+- **Sidebar** — standard form; answer and action in one panel
+- **Workspace** — deeper evidence review before action decision
+- **Voice** — spoken answer, then visual confirmation for action
+
+## Failure Modes
+
+- Answer is ungrounded or evidence is stale — user acts on wrong information
+- Action is offered without permission context — system suggests something the user cannot do
+- User cannot inspect why the action is being recommended
+- Answer and action feel like the same step — user loses agency
+
+## Related Recipes
+
+- Signal → Explanation → Approval
+- Find → Shortlist → Compare

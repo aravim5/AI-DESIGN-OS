@@ -1,0 +1,107 @@
+---
+title: "The Context Model"
+layer: "context"
+summary: "The Context Model defines the situational information the AI system must use to interpret intent, shape output, and maintain continuity. It answers: What does the system need to know about this situation?"
+order: 7
+---
+
+## A. Definition
+
+The Context Model defines the situational information an AI system should use to interpret intent, shape output, constrain action, and maintain continuity across time and workflows. It answers the question: **What does the system need to know about this situation to respond appropriately?**
+
+Context is broader than a user profile, broader than the model's immediate context window, and broader than memory alone. It is the situational substrate that makes AI behavior relevant and bounded.
+
+## B. Why It Matters
+
+Enterprise AI breaks when the system sounds intelligent but behaves generically because it lacks enough understanding of role, task, active entity, timing, system state, or organizational conditions.
+
+Context is what makes enterprise AI **situationally intelligent** instead of generically fluent.
+
+Enterprise AI breaks without real context for four reasons:
+
+1. **Relevance collapses.** The same question can mean different things depending on the user, the client, the workflow stage, the jurisdiction, and the current state of the system.
+2. **Safety collapses.** Enterprise AI must operate inside permission boundaries, policy rules, and approval structures.
+3. **Continuity collapses.** Enterprise work unfolds across sessions, people, handoffs, and time.
+4. **Orchestration collapses.** Agentic systems need the right context to choose tools, decide whether to ask, act, escalate, or wait.
+
+## C. The Eight Context Categories
+
+**1. User context** — identity, preferences, communication style, saved filters, language, workload habits, assigned portfolio, and personal operating patterns. Helps the AI tailor prioritization, explanation depth, and action suggestions.
+
+**2. Role and permission context** — what the current user is allowed to see, suggest, edit, approve, or execute. Role type, supervisory relationship, jurisdictional rules, data entitlements, action limits, and approval rights. An answer that is correct but unauthorized is still a failure.
+
+**3. Workflow context** — where the user is inside a task, process, or journey. Current stage, previous step, next available step, blockers, dependencies, deadlines, approvals, and escalation paths. This is what stops an AI assistant from behaving like a disconnected Q&A tool.
+
+**4. Record and entity context** — which business object is currently in scope and what facts define it. Clients, prospects, households, accounts, opportunities, cases, tasks, meetings, documents, products, policies, and linked entities.
+
+**5. Team and organizational context** — how work is distributed above the individual user. Team ownership, coverage models, account assignments, business goals, manager priorities, supervisory structures, regional operating models, performance targets, and shared queues.
+
+**6. System state context** — what the digital environment itself is currently able to support. Model availability, tool readiness, API failures, stale indexes, queue states, sync latency, unresolved exceptions, and confidence about freshness. Many bad AI experiences occur because systems speak as if they have full capability when the underlying systems are degraded.
+
+**7. Environmental context** — external conditions that affect timing, risk, or appropriateness. Time of day, market conditions, geography, device posture, channel, client travel status, local holidays, regulatory windows, branch hours, or major business events.
+
+**8. Historical and memory context** — what has already happened and what should influence the present interaction. Prior conversations, prior actions, prior decisions, previous drafts, meeting history, relationship changes, unresolved commitments, and model-maintained summaries.
+
+## D. What Does Not Belong Here
+
+- The user's underlying job (that belongs to the job model)
+- The interaction pattern used to express the answer (that belongs to the pattern family model)
+- Where the experience appears (that belongs to the surface model)
+- How much autonomy the system should have (that belongs to the autonomy model)
+
+**Boundary test:** If the information changes what the system should know, retrieve, prioritize, or do in a given moment, it belongs in context. If the concept defines the shape of the experience, the degree of control, or the evaluation rule, it belongs elsewhere.
+
+## E. Design Principles
+
+1. **Treat context as situational, not static.** Role, task stage, entity, timing, and system state change from moment to moment.
+2. **Separate context from the context window.** The model's working memory is only one implementation layer of a broader design problem.
+3. **Ground context in enterprise reality.** Use records, connectors, workflow state, and business data where appropriate.
+4. **Keep context selective.** High-signal context is better than indiscriminate accumulation. More context is not automatically better.
+5. **Make critical context legible.** Users should be able to inspect or correct important scope assumptions when needed.
+6. **Design for stale, missing, or conflicting context.** Strong systems degrade gracefully or ask for clarification rather than pretending certainty.
+7. **Respect entitlement before retrieval.** Permission checks should happen before retrieval, grounding, memory recall, and tool selection.
+8. **Treat context freshness as a first-class property.** Every meaningful context source should carry timestamp, source, confidence, and freshness metadata.
+
+## F. Enterprise Examples
+
+**Sales operations:** A revenue manager asks, "Show me deals that need intervention this week." A context-aware system uses role permissions, current region, team ownership, forecast cycle, SLA thresholds, and recent activity to rank deals that are both at risk and actionable — not just generic late-stage deals.
+
+**IT support:** A service agent asks, "What should I do next on this ticket?" With workflow context, system state, entitlement data, and case history, the system recognizes that the ticket is waiting on customer confirmation, that the identity service is degraded, and that the agent may send a templated follow-up but not close the incident.
+
+**HR assistant:** An HR business partner asks for a summary before a performance conversation. A stronger system adds manager relationship, prior review notes, open development goals, and region-specific policy while suppressing information that the partner is not entitled to access.
+
+## G. Private Banking Translation
+
+In private banking, context is especially consequential because almost every interaction is shaped by client sensitivity, relationship continuity, permission structures, and time-dependent judgment.
+
+- **Advisor context:** Book, coverage responsibilities, growth focus, communication style, and active priorities
+- **Banker and specialist context:** Different roles need different depth and action rights. A banker, investment specialist, service associate, and supervisor should not receive the same answer even when looking at the same household.
+- **Prospecting:** Firm-owned leads, self-sourced prospects, referral status, engagement history, and stage in conversion
+- **Relationship management:** Household structure, balances, portfolio shifts, open needs, recent conversations, travel, important dates, and service history
+- **Service workflows:** Request type, current owner, pending documentation, SLA timing, and escalation history
+- **Meeting preparation:** Prior agendas, promises made, unresolved follow-ups, portfolio changes, and recent life or business events — where historical memory becomes highly valuable
+- **Compliance and supervision:** Who is allowed to see what, which interactions require review, and how recommendations should be qualified
+
+A question such as *"who should I call today?"* is almost meaningless without book-of-business scope, recent engagement, open service issues, event timing, and previous follow-up history. Context is what turns fluent output into useful advisory support.
+
+## H. Failure Modes
+
+- **Context blindness:** the system responds fluently but to the wrong client, record, or workflow
+- **Permission leakage:** retrieved evidence or proposed actions exceed the user's entitlement
+- **Workflow drift:** the AI recommends steps that are premature, redundant, or blocked
+- **Stale reasoning:** answers are grounded in outdated records, indexes, or market assumptions
+- **Memory confusion:** the system treats weak summaries, raw history, and durable facts as equivalent
+- **Over-personalization:** user preferences are allowed to override policy or governance rules
+- **Context overload:** too much unfiltered context reduces relevance, increases latency, and degrades model performance
+- **Silent degradation:** failed tools or stale connectors are not reflected in user-facing behavior
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- Microsoft Research — Guidelines for Human-AI Interaction — https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf
+- Microsoft 365 Copilot architecture — https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-architecture
+- Anthropic — Glossary: context window — https://docs.anthropic.com/en/docs/resources/glossary
+- Anthropic — Context engineering for AI agents — https://www.anthropic.com/research
+- OpenAI — Prompt engineering guide — https://developers.openai.com/api/docs/guides/prompt-engineering/
+- Google Cloud — Choose agentic AI architecture components — https://docs.cloud.google.com/architecture/choose-agentic-ai-architecture-components
+- Google Cloud — What Is AI context engineering? — https://cloud.google.com/

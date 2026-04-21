@@ -1,0 +1,98 @@
+---
+title: "Approval Checkpoint"
+summary: "A consequential system recommendation, draft, or action is held for explicit human review and authorization before it proceeds."
+patternFamily: "governance-control"
+jobs: ["execute", "collaborate"]
+modalities: ["text"]
+surfaces: ["overlay", "workspace", "sidebar"]
+trustLevel: 4
+autonomyLevel: 4
+enterpriseRisk: "high"
+status: "stable"
+relatedPatterns: ["draft-and-edit", "guided-flow", "audit-history-view"]
+relatedRecipes: ["signal-explanation-approval", "agent-plan-checkpoint-execute", "draft-review-send"]
+---
+
+## Definition
+
+Approval Checkpoint is the pattern where a consequential system recommendation, draft, or action is held for explicit human review and authorization before it proceeds.
+
+## Why It Matters
+
+Enterprise AI should not blur the line between suggestion and action. Some outcomes need explicit sign-off because of financial, legal, compliance, reputational, or workflow consequences. The checkpoint is the pattern that enforces that boundary.
+
+## When to Use
+
+- The system is about to perform a consequential action
+- Content may be sent externally
+- A recommendation changes status, money, risk, or compliance posture
+- Business process requires authorization
+- Human accountability must remain explicit
+
+## When Not to Use
+
+- The outcome is low-risk and reversible
+- The step is purely informational
+- The review adds no real control and only creates friction theater
+
+## Inputs and Minimum Context
+
+The pattern needs: proposed action or decision, rationale and evidence, affected entities, policy constraints, reviewer identity and permission, and reversibility status.
+
+## Core Interaction Anatomy
+
+- **Trigger:** System reaches action threshold or user initiates review
+- **Output:** Concise summary of what will happen
+- **Support:** Show why, what data informed it, and what changes will occur
+- **Controls:** Approve, reject, edit, request changes, or escalate
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Pending review** | Awaiting human authorization |
+| **Approved** | Action authorized to proceed |
+| **Rejected** | Action stopped |
+| **Revised and re-submitted** | Edited version awaiting approval |
+| **Escalated** | Routed to higher authority |
+| **Expired** | Approval window passed |
+| **History** | Prior approvals accessible |
+
+## Trust and Governance Requirements
+
+Approval Checkpoint must expose:
+- Exact action scope — what will happen
+- Who is authorizing and under what authority
+- What evidence supports the action
+- Whether the action is reversible
+- Where the action is logged
+
+## Surface and Modality Variants
+
+- **Modal or dialog** — for short, focused approvals
+- **Workflow step** — for multi-step flows with a dedicated review stage
+- **Queue or review center** — for batched approvals
+- **Sidebar** — for contextual approvals tied to current record
+
+## Enterprise Example
+
+A support AI proposes closing a high-priority case with an automated response. The system pauses at a checkpoint, shows the proposed message, the evidence behind closure, and asks the manager to approve or edit.
+
+## Anti-Patterns
+
+- Approval without evidence — reviewer cannot make an informed decision
+- Approval after the action already happened
+- One-click approval for complex decisions
+- Checkpoint spam on trivial actions
+
+## Failure Modes
+
+- Reviewers approve without understanding — checkbox compliance rather than real oversight
+- Teams overuse approval and slow the workflow
+- Teams underuse approval and create control gaps
+
+## Private Banking Translation
+
+Before sending a client-facing follow-up drafted by AI, the advisor or supervisory reviewer sees the message, cited account facts, suitability warnings, and approval controls — then explicitly approves or edits before sending.
+
+Approval Checkpoint is the most important governance pattern in private banking AI. It must appear whenever: client-facing content is about to be sent; a recommendation moves from advisory context to formal action; a workflow step updates a regulated record; or a step crosses a threshold requiring supervisory review. The checkpoint must show what will happen, what data was used, what cannot be changed without restarting the process, and who is authorizing. Approval should be logged as part of the audit trail.

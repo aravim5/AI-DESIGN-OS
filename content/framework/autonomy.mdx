@@ -1,0 +1,106 @@
+---
+title: "The Autonomy Model"
+layer: "autonomy"
+summary: "The Autonomy Model defines the degree of operational agency granted to the AI system. It answers: How much is the system allowed to do?"
+order: 6
+---
+
+## A. Definition
+
+The Autonomy Model defines the degree of operational agency granted to the AI system: how far it may go from informing the user to taking action on the user's behalf. It answers the question: **How much is the system allowed to do?**
+
+Autonomy is a designable gradient, not a binary and not a brand label. It separates what the system *knows* from what the system *may do*.
+
+## B. Why It Matters
+
+Enterprise AI breaks when system agency is implicit. Users cannot tell whether the AI is only explaining, actively shaping judgment, preparing work, or actually changing system state.
+
+Official sources increasingly treat autonomy as a range: NIST refers to varying levels of autonomy; OpenAI uses confirmations, watch mode, and refusals in agentic workflows; Microsoft links autonomy to oversight and decision impact; Google describes agentic AI in terms of planning and action; Anthropic evaluates autonomous capabilities as a distinct risk dimension.
+
+## C. What Belongs Here
+
+- Degree of system initiative
+- Independent planning
+- Tool use without intervention
+- Approval requirements
+- Action boundaries
+- Escalation thresholds
+- Operating scope and duration
+- A clear scale of agency from low-risk support to bounded autonomous operation
+
+## D. What Does Not Belong Here
+
+- The user's job or the interaction pattern
+- Whether the model is "smart" or impressive
+- Whether the product is marketed as an assistant, copilot, or agent
+
+## The Autonomy Scale
+
+| Level | Name | What the system does |
+|---|---|---|
+| **1** | Inform | Answer questions and explain with no action |
+| **2** | Recommend | Suggest options or next steps with rationale |
+| **3** | Prepare | Draft, prefill, or assemble work for human review |
+| **4** | Guide | Lead the user through a bounded sequence with confirmations |
+| **5** | Execute with approval | Act after explicit human authorization |
+| **6** | Execute within policy | Act autonomously within defined boundaries for low-risk tasks |
+
+## E. Design Principles
+
+- **Design autonomy explicitly.** Do not let agency emerge accidentally through hidden tools or background logic.
+- **Scale autonomy with oversight.** As the system gains power, intervention, monitoring, and policy boundaries should strengthen.
+- **Separate preparation from execution.** Drafting and prefilling are different thresholds from sending, submitting, or changing state.
+- **Prefer bounded autonomy over vague autonomy.** Define what the system can act on, with which tools, under which rules, and for how long.
+- **Use approval sparingly but deliberately.** Not every action needs confirmation, but sensitive, high-risk, or irreversible actions often do.
+- **Design the "minimum footprint" principle.** Request only necessary permissions and avoid storing sensitive information beyond immediate needs.
+
+## F. Enterprise Examples
+
+- **Knowledge assistant:** Inform with grounded answers but no action (Level 1)
+- **Sales prioritization:** Recommend who to contact next with rationale (Level 2)
+- **Operations workflow:** Prepare a case packet and assignable draft steps (Level 3)
+- **Guided onboarding:** Lead the user through a bounded sequence with explicit confirmations (Level 4)
+- **Routine internal automation:** Execute within policy for low-risk, high-repeatability tasks (Level 6)
+
+## G. Private Banking Translation
+
+Private banking is a strong proving ground because the difference between summarizing, recommending, drafting, and acting carries supervisory and customer-impact consequences.
+
+Typical mapping by use case:
+- **Inform** — relationship summary, portfolio change explanation, service status
+- **Recommend** — which households deserve attention today; next-best-action priorities
+- **Prepare** — meeting briefs, follow-up drafts, CRM note prefill
+- **Guide** — an advisor through a service or review flow with step-by-step confirmation
+- **Execute with approval** — staged workflow submission, client-facing communication after supervisor review
+- **Execute within policy** — narrowly bounded internal tasks such as opening a low-risk follow-up item
+
+A strong design in this domain rarely jumps directly from recommendation to unreviewed action. Instead it stages the work: signal → explain → prepare → review → approve → execute where allowed.
+
+## H. Autonomy + Trust Matrix
+
+| Autonomy level | Minimum trust requirements |
+|---|---|
+| Inform | Source attribution |
+| Recommend | Rationale visibility, dismissal path |
+| Prepare | Editability, AI presence marked, source visible |
+| Guide | Step visibility, skip controls, pause/resume |
+| Execute with approval | Approval checkpoint, scope disclosure, full logging |
+| Execute within policy | Permission scope, continuous monitoring, incident response plan |
+
+## I. Failure Modes
+
+- **Autonomy ambiguity:** users cannot tell whether the system is informing, recommending, preparing, or acting
+- **Agent inflation:** any tool-using flow is described as autonomous even when it still depends heavily on the user
+- **Action without adequate approval:** sensitive actions occur without enough review or control
+- **High power with weak boundaries:** the agent has overly broad permissions, poor least-privilege scope, or no clear human controller
+- **Implicit escalation:** the system gains more autonomy over time without users or organizations explicitly deciding to grant it
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- Google Cloud — What is agentic AI? — https://cloud.google.com/discover/what-is-agentic-ai
+- OpenAI — Operator system card — https://openai.com/index/operator-system-card/
+- OpenAI — A practical guide to building agents — https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+- Microsoft Copilot Studio — Responsible AI maturity model — https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/maturity-model-responsible-ai
+- Anthropic — Responsible Scaling Policy — https://www.anthropic.com/news/responsible-scaling-policy-v3
+- Anthropic — Building Effective Agents — https://www.anthropic.com/research/building-effective-agents

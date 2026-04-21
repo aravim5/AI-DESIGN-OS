@@ -1,0 +1,92 @@
+---
+title: "Contextual Assistant"
+summary: "An assistant pattern tied to the user's current page, record, or workflow so that help is grounded in the immediate work context rather than generic conversation."
+patternFamily: "workflow-assistance"
+jobs: ["ask", "understand", "decide", "execute"]
+modalities: ["text", "multimodal"]
+surfaces: ["sidebar", "inline", "workspace"]
+trustLevel: 2
+autonomyLevel: 2
+enterpriseRisk: "low"
+status: "stable"
+relatedPatterns: ["quick-answer", "evidence-backed-answer", "guided-flow"]
+relatedRecipes: ["ask-evidence-action"]
+---
+
+## Definition
+
+Contextual Assistant is an assistant pattern tied to the user's current page, record, object, or workflow so that help is grounded in the immediate work context rather than generic conversation.
+
+## Why It Matters
+
+One of the biggest failures in enterprise AI is generic assistance that ignores where the user is, what they are viewing, and what they are trying to do. Contextual Assistant makes context first-class and reduces prompt burden while improving relevance.
+
+## When to Use
+
+- The user is already in a record or workflow
+- Context materially improves answer quality
+- The assistant should help without requiring repeated restatement
+- The user may move from asking to acting
+
+## When Not to Use
+
+- The task is standalone and not tied to current context
+- The user needs a broad search across many contexts first
+- Context is weak, missing, or misleading
+
+## Inputs and Minimum Context
+
+The pattern needs: current page or object, entity metadata, recent actions, workflow state, permissions, and related records or linked entities.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User opens assistant or asks from within context
+- **Output:** Answers, suggestions, actions, summaries, or explanations grounded in current context
+- **Controls:** Ask, refine, inspect evidence, launch workflow, or open related item
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Closed** | Assistant not open |
+| **Open with suggestions** | Assistant shows relevant prompts based on context |
+| **Active response** | Answer in progress |
+| **Waiting** | User considering next step |
+| **Low-confidence context** | Context scope disclosed |
+| **Blocked** | Permissions limit available help |
+| **Context switched** | User navigated away; prior conversation accessible |
+| **History retained** | Prior context-scoped interactions accessible |
+
+## Trust and Governance Requirements
+
+The assistant should show what context it is using. It should not imply universal knowledge if it is scoped to one record or page. If the user shifts context, the assistant should either update clearly or preserve the earlier conversation as scoped history.
+
+## Surface and Modality Variants
+
+- **Sidebar** — canonical form; persistent and accessible while navigating
+- **Inline panel** — compact help within the current object
+- **Workspace assistant** — deeper multi-step tasks with full context
+- **Voice** — only when paired with visible context scope
+
+## Enterprise Example
+
+In a CRM account view, the assistant answers questions about recent pipeline changes, relevant contacts, and next actions — without the user needing to restate the account name.
+
+## Anti-Patterns
+
+- Generic prompts unrelated to context
+- Unclear scope — user cannot tell what the assistant knows
+- Assistant resets every time the page changes
+- Using the assistant as a dumping ground for every AI feature
+
+## Failure Modes
+
+- Users stop trusting responses because they cannot tell what context was used
+- The assistant becomes noisy and too broad
+- Context errors cascade into wrong answers and wrong suggestions
+
+## Private Banking Translation
+
+On a client profile, the assistant can summarize recent interactions, explain why a household is flagged, surface open service tasks, and propose follow-up actions — all grounded in that specific relationship.
+
+The Contextual Assistant is the primary AI surface in private banking CRM and advisory platforms. Its quality depends entirely on the richness of its context: household scope, recent activity, portfolio changes, service history, and open commitments. The assistant should make its context scope visible ("Based on the Rao household profile...") and update when the advisor navigates to a different record. It should not pretend universal knowledge — if context is limited, it should say so.

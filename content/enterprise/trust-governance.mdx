@@ -1,0 +1,140 @@
+---
+title: "Trust and Governance Constraints"
+summary: "How regulatory frameworks, organizational policy, and enterprise risk management shape AI design decisions — and the eleven trust dimensions that must be designed in."
+order: 1
+---
+
+## Why Enterprise AI Is Governed Differently
+
+Consumer AI products operate in low-stakes, high-tolerance environments. Enterprise AI operates in environments where:
+
+- Outputs can influence regulated decisions
+- Users are accountable for what they approve
+- Organizations must be able to explain what the system did
+- Errors have real operational, financial, or legal consequences
+
+This means trust and governance are not optional design considerations. They are structural requirements that must be designed in from the beginning.
+
+Enterprise AI rarely fails because the model is "not smart enough." It usually fails because users cannot tell when to rely on it, what evidence supports it, whether it is authorized to act, what can be edited or reversed, or who remains accountable when something goes wrong.
+
+## The Regulatory Landscape
+
+**NIST AI Risk Management Framework (AI RMF 1.0)** — the foundational US framework for managing AI risk. Treats AI systems as socio-technical systems. Organizes risk management around four functions: Govern, Map, Measure, and Manage. Frames trustworthy AI around validity, reliability, safety, security and resilience, accountability, transparency, explainability, privacy, and fairness.
+
+**NIST Generative AI Profile (AI 600-1)** — extends AI RMF for generative AI systems, covering hallucination, data privacy, intellectual property, and systemic risks specific to foundation models.
+
+**EU AI Act** — the first comprehensive legal framework for AI in the EU. Uses a risk-based structure: higher-risk systems face more stringent transparency, human oversight, record-keeping, and remedy requirements. Article 13 requires sufficient transparency for deployers to interpret outputs. Article 14 requires human oversight measures that allow intervention, override, or safe halt.
+
+**OECD AI Principles** — international principles covering transparency, explainability, robustness, and accountability.
+
+**ISO/IEC 42001** — AI management system standard providing a framework for organizations to responsibly develop and use AI.
+
+## The Eleven Trust Dimensions
+
+**1. Confidence visibility** — how much caution or reliance is appropriate. Use structured labels such as "verified," "partially grounded," "weakly supported," or "evidence incomplete." Avoid precise percentages unless the underlying signal is meaningful. Poorly calibrated confidence cues can distort reliance.
+
+**2. Evidence and grounding** — what is this output based on? Grounding can include policy text, transaction history, CRM events, retrieved documents, linked calculations, or validated business rules. Separate narrative from proof: the user should be able to move from answer to supporting evidence to source detail without losing context.
+
+**3. Permissions** — what the AI is allowed to see, suggest, change, or execute. Permissions should be task-scoped, not just identity-scoped. A user may be allowed to view a record but not send external communication or modify a regulated record without further authorization.
+
+**4. Reviewability** — the system's work can be inspected before it matters. Includes previewing drafts, inspecting evidence, comparing alternatives, checking what changed, and verifying intended downstream effect before any consequential step is committed.
+
+**5. Editability** — users can change the AI's work without fighting the system. AI output is often a first pass, not a final artifact. Making outputs editable preserves expert judgment and improves adoption.
+
+**6. Reversibility** — what can be undone, overridden, reversed, or safely halted. The more autonomous the action, the stronger the reversal design must be. Discarding a draft and reversing an external action are different classes of control.
+
+**7. Approval checkpoints** — explicit moments where the system must pause for human authorization. Place at moments of material consequence: external communication, financial movement, permanent system-of-record updates, regulatory filing, or policy exception handling.
+
+**8. Auditability** — the system leaves behind a trace that supports explanation, challenge, investigation, and supervisory review. Logs must capture AI involvement: model used, context supplied, evidence retrieved, output produced, edits made, approvals given, and final action taken.
+
+**9. Escalation and human handoff** — the structured path from AI to a person, team, or alternate workflow when the system should not proceed alone. Good handoff preserves context so the human does not need to reconstruct the case from scratch.
+
+**10. Fallback behavior** — what happens when the system cannot answer safely, cannot find adequate evidence, detects low confidence, or reaches a policy boundary. Good fallback is specific: it states what failed, what remains uncertain, what the user can do next, and whether the workflow has paused or rerouted.
+
+**11. Compliance-aware interaction patterns** — anticipating regulated obligations in the design itself. Examples: evidence drawers for consequential recommendations, disclosure banners, immutable audit snapshots, structured approval states, AI literacy cues, and policy-aware refusal or escalation paths.
+
+## Risk-Based Design
+
+Controls should scale with risk:
+
+| Use case type | Governance posture |
+|---|---|
+| Informational answers | Source attribution, freshness visibility |
+| Decision support | Rationale visible, challenge path available |
+| Consequential recommendations | Approval checkpoint, audit trail required |
+| Autonomous execution | Full governance stack, reversibility plan |
+
+NIST recommends managing AI risk according to impact, likelihood, and risk tolerance. The EU AI Act uses a risk-based structure with stronger obligations as consequence increases.
+
+## Governance Rules by Autonomy Level
+
+| Autonomy level | Minimum governance requirements |
+|---|---|
+| Inform | Source attribution |
+| Recommend | Rationale visibility, dismissal path |
+| Prepare | Editability, AI presence marked, source visible |
+| Guide | Step visibility, skip controls, pause/resume |
+| Execute with approval | Approval checkpoint, scope disclosure, full logging |
+| Execute within policy | Permission scope, continuous monitoring, incident response plan |
+
+## Model Risk Management for Financial Services
+
+For financial services organizations, model risk management guidance (Federal Reserve SR 11-7) remains relevant. It frames model risk around governance, validation, effective challenge, and materiality.
+
+As of April 2026, revised interagency model risk guidance from the OCC (Bulletin 2026-13) and Federal Reserve (SR 26-2) stresses a risk-based approach — but explicitly notes that generative AI and agentic AI are outside the scope of that revised guidance for now. Existing banking guidance is relevant but does not fully solve trust and governance design for modern generative or agentic systems.
+
+**Implication for design:** Organizations in regulated industries must apply model risk thinking to AI systems that generate, recommend, or act — even when those systems do not fit traditional model definitions.
+
+## Privacy and Data Governance
+
+Enterprise AI must respect:
+- **Data minimization** — use only what is needed for the task
+- **Purpose limitation** — do not use data beyond its intended scope
+- **Transparency** — users should understand what data is used
+- **Retention and deletion** — data should not persist beyond its purpose
+- **Cross-border constraints** — data sovereignty requirements vary by jurisdiction
+- **Least-privilege access** — retrieve only what is needed for the current action
+
+## Failure Modes
+
+- **Trust theater:** badges or confidence scores shown without real evidence, controls, or accountability
+- **Policy without usability:** rules exist internally but cannot be worked with in the interface
+- **Usability without governance:** the system feels smooth, but there is no release discipline, logging, or incident response
+- **One-size-fits-all review:** every output gets the same control burden regardless of risk
+- **False precision:** exact confidence numbers shown without calibrated meaning
+- **Grounding theater:** sources are attached, but they do not support the claim
+- **Hidden authority:** user cannot tell whether the system is informing, recommending, or acting
+- **Audit gaps:** organization logs user clicks but not AI contribution, retrieved context, or approvals
+- **Escalation dead ends:** the system says to contact another team but does not preserve case context or route intelligently
+
+## Practical Design Checklist
+
+For any enterprise AI feature, design teams should be able to answer:
+
+- [ ] What is the risk tier of this use case?
+- [ ] What trust controls are required at this risk level?
+- [ ] Can the user inspect the basis for the output?
+- [ ] Can the user edit, reject, or override the output?
+- [ ] Is there a path to human escalation?
+- [ ] Is there an audit trail that includes AI involvement?
+- [ ] What happens when the system is uncertain?
+- [ ] Who is accountable when something goes wrong?
+- [ ] Does confidence visibility reflect real calibration, not just styling?
+- [ ] Are permissions task-scoped, not just identity-scoped?
+- [ ] Is fallback behavior specific and actionable, not a generic error message?
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- NIST — Generative AI Profile, AI 600-1 — https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf
+- OECD — AI Principles — https://www.oecd.org/en/topics/ai-principles.html
+- EU AI Act — Article 13: Transparency — https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-13
+- EU AI Act — Article 14: Human oversight — https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-14
+- EU AI Act — Article 4: AI literacy — https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4
+- Federal Reserve — SR 11-7: Model Risk Management — https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm
+- OCC — Bulletin 2026-13: Model Risk Management — https://www.occ.treas.gov/news-issuances/bulletins/2026/bulletin-2026-13.html
+- Federal Reserve — SR 26-2: Revised Model Risk Guidance — https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm
+- Microsoft — Responsible AI Standard v2 — https://blogs.microsoft.com/wp-content/uploads/prod/sites/5/2022/06/Microsoft-Responsible-AI-Standard-v2-General-Requirements-3.pdf
+- OpenAI — Model Spec — https://model-spec.openai.com/2025-02-12.html
+- Anthropic — Constitution — https://www.anthropic.com/constitution
+- Anthropic — Responsible Scaling Policy — https://www.anthropic.com/news/responsible-scaling-policy-v3

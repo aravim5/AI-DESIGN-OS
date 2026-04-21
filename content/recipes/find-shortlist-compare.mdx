@@ -1,0 +1,76 @@
+---
+title: "Find → Shortlist → Compare"
+summary: "Progressive narrowing from a large candidate set to a focused comparison workspace, before the user makes a final selection."
+workflowShape: "Find → Filter → Shortlist → Compare Workspace → Select Next Step"
+patterns: ["recommendation-list", "comparison-workspace", "evidence-backed-answer"]
+jobs: ["find", "decide", "understand"]
+surfaces: ["workspace", "sidebar"]
+trustLevel: 3
+autonomyLevel: 2
+status: "stable"
+---
+
+## Purpose
+
+Use this recipe when the user is exploring options rather than asking for one definitive answer. The recipe progressively narrows a large set into a manageable comparison surface.
+
+This is the right recipe for prospecting, procurement, candidate review, vendor selection, or any decision that requires structured judgment across multiple options.
+
+## Workflow Shape
+
+```
+Find → Filter → Shortlist → Compare Workspace → Select Next Step
+```
+
+## Primary Patterns
+
+1. **Recommendation List** — initial ranked set with rationale
+2. **Comparison Workspace** — side-by-side evaluation surface
+3. **Evidence-Backed Answer** — supporting detail within each comparison item
+
+## Inputs Required
+
+- Search criteria or objective
+- Candidate set with comparable dimensions
+- Ranking or filtering logic
+- User objective and decision criteria
+- Evidence or source data per item
+
+## Outputs
+
+- Ranked shortlist
+- Comparison view with trade-offs visible
+- Selection decision, saved or committed
+
+## Autonomy Level
+
+**Level 2 — Recommend.** The system narrows and organizes. The user selects. No action is taken until the user explicitly chooses.
+
+## Trust Requirements
+
+- Shortlist criteria must be inspectable — user should understand why items were included or excluded
+- Comparison dimensions must reflect the user's actual decision criteria
+- AI-highlighted "best option" must show its reasoning
+- Final selection must be distinct from the comparison itself
+
+## Example Scenario
+
+A procurement lead needs to select a vendor. The system finds candidates matching the brief, creates a ranked shortlist of five, then opens a comparison workspace showing cost, implementation time, security posture, and support model side by side. The lead makes a selection and moves to approval.
+
+## Modality and Surface Variants
+
+- **Workspace** — canonical form for this recipe; full comparison surface
+- **Sidebar mini-compare** — two to three items with key dimensions
+- **Voice** — verbally summarize top two candidates and key trade-offs; always follow with visual workspace
+
+## Failure Modes
+
+- Shortlist criteria are opaque — user cannot tell why certain items appear
+- Comparison normalizes unlike entities in misleading ways
+- The user cannot reopen the search logic that produced the list
+- Too many comparison dimensions — workspace becomes overwhelming
+
+## Related Recipes
+
+- Ask → Evidence → Action
+- Draft → Review → Send

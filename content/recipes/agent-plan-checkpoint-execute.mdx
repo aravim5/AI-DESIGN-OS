@@ -1,0 +1,78 @@
+---
+title: "Agent Plan → Checkpoint → Execute"
+summary: "A multi-step workflow is automated but pauses at a human checkpoint before execution, then logs what ran."
+workflowShape: "Plan → Tool Selection → Human Checkpoint → Execute → Log and Follow-up"
+patterns: ["guided-flow", "approval-checkpoint", "long-running-task-tracker", "audit-history-view"]
+jobs: ["execute", "monitor", "collaborate"]
+surfaces: ["workspace", "sidebar", "notification"]
+trustLevel: 5
+autonomyLevel: 5
+status: "emerging"
+---
+
+## Purpose
+
+Use this recipe when a multi-step workflow can be automated but the cost of an incorrect action is too high for silent execution. The checkpoint validates both the plan and the execution boundary before anything consequential happens.
+
+This is the right recipe for agentic workflows involving tool use, system changes, or external actions.
+
+## Workflow Shape
+
+```
+Plan → Tool Selection → Human Checkpoint → Execute → Log and Follow-up
+```
+
+## Primary Patterns
+
+1. **Guided Flow** — stepwise task structure with visible progression
+2. **Approval Checkpoint** — mandatory human authorization gate
+3. **Long-Running Task Tracker** — visibility into background execution
+4. **Audit / History View** — record of what was planned, approved, and run
+
+## Inputs Required
+
+- Task objective and scope
+- Available tools and permissions
+- Boundary conditions and constraints
+- Reviewer identity and authorization level
+- Reversibility status per action step
+
+## Outputs
+
+- Executed plan with confirmation
+- Audit log: what was planned, what was approved, what ran
+- Follow-up actions or monitoring state
+
+## Autonomy Level
+
+**Level 5 — Execute within Policy.** The system plans and executes within defined boundaries. Checkpoint ensures the human has reviewed before consequential steps. Logging ensures accountability after.
+
+## Trust Requirements
+
+- Plan must be shown before execution — reviewer must see the steps, not just the goal
+- Checkpoint must be genuinely consequential — not a formality
+- Low-risk and high-risk steps should be separated — not all approved together
+- Execution log must capture what was approved versus what actually ran
+- Divergence between approved plan and actual execution must be flagged
+
+## Example Scenario
+
+An operations agent detects an incident and proposes a remediation sequence: isolate the affected service, notify impacted teams, run a diagnostic, and restore if clean. The engineer reviews the plan, approves steps 1–3, and defers step 4. The agent executes the approved steps, logs each action, and returns the diagnostic result for the engineer to decide on step 4.
+
+## Modality and Surface Variants
+
+- **Workspace** — full plan visibility with checkpoint and execution status
+- **Sidebar** — plan shown adjacent to current operational context
+- **Notification** — checkpoint alert; approve in-line or open workspace
+
+## Failure Modes
+
+- Plan is hidden and therefore hard to approve responsibly
+- Checkpoint is too broad — low-risk and high-risk steps approved together
+- Execution log does not preserve what was approved versus what actually ran
+- Agent takes additional actions not in the approved plan
+
+## Related Recipes
+
+- Signal → Explanation → Approval
+- Draft → Review → Send

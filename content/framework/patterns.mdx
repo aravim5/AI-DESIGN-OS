@@ -1,0 +1,95 @@
+---
+title: "The Pattern Family Model"
+layer: "patterns"
+summary: "Pattern families define the recurring interaction structures through which an AI system supports a class of user jobs. They answer the question: What kind of AI interaction is happening here?"
+order: 2
+---
+
+## A. Definition
+
+The Pattern Family Model defines the recurring interaction structures through which an AI system supports a class of user jobs. It answers the question: **What kind of AI interaction is happening here?**
+
+Pattern families sit between work intent and interface implementation. They provide a reusable interaction language that is more durable than components and more specific than broad product labels.
+
+## B. Why It Matters
+
+Enterprise AI breaks when teams jump directly from jobs to features or components. The result is a grab bag of summary cards, prompts, alerts, and buttons that do not form a coherent system.
+
+Pattern families provide a middle layer of design logic. They help teams distinguish retrieval from synthesis, synthesis from recommendation, recommendation from execution, and execution from recovery.
+
+## C. What Belongs Here
+
+- Intent capture and routing
+- Retrieval and grounding
+- Explanation and synthesis
+- Recommendation and decision support
+- Generation and drafting
+- Execution and orchestration
+- Proactive intelligence
+- Memory and personalization
+- Trust, review, and controls
+- Failure and recovery
+
+Interaction logic that can travel across multiple products, surfaces, and modalities belongs here.
+
+## D. What Does Not Belong Here
+
+- UI containers such as sidebars, overlays, dialogs, or workspaces
+- Modalities such as text, voice, image, chart, or video
+- Jobs such as ask, decide, or execute
+- Isolated components such as cards, chips, prompts, tabs, or drawers
+
+## The Seven Pattern Families
+
+| Family | What it covers |
+|---|---|
+| **Answer** | Quick retrieval and direct response patterns |
+| **Recommendation** | Ranked options, priorities, and suggested actions |
+| **Creation** | Drafting, generation, and content production |
+| **Workflow assistance** | Guided flows, form fill, and contextual help |
+| **Monitoring and signal** | Proactive detection and tracking patterns |
+| **Governance and control** | Approval, review, audit, and accountability |
+| **Recovery and continuity** | Error handling, memory, and resumption |
+
+## E. Design Principles
+
+- **Design the interaction logic before the component.** Define the family first, then decide how it will be expressed in UI.
+- **Keep pattern families above features and below jobs.** They should describe repeatable interaction structures, not broad work intents or narrow controls.
+- **Separate passive understanding from active influence.** Summarization is not the same as recommendation, and recommendation is not the same as execution.
+- **Treat proactive and recovery patterns as core.** The system must watch, warn, and recover — not only answer on demand.
+- **Allow one workflow to use multiple families.** Real enterprise experiences are composite and rarely fit one interaction form only.
+
+## F. Enterprise Examples
+
+- **Customer support:** Retrieval + synthesis + recovery for case escalation
+- **Procurement:** Recommendation + review + approval for vendor selection
+- **Marketing:** Generation + review controls for campaign drafts
+- **Finance:** Proactive intelligence + explanation for threshold breaches
+- **Engineering:** Orchestration + recovery for incident triage workflows
+
+## G. Private Banking Translation
+
+Private banking makes the Pattern Family Model especially legible because fact retrieval, relationship explanation, client prioritization, draft generation, service orchestration, and supervisory review are not interchangeable.
+
+- A command bar uses **intent capture and routing**
+- A client record assistant uses **retrieval and grounding** plus **explanation and synthesis**
+- A next-best-action surface uses **recommendation and decision support**
+- A meeting-prep tool combines **synthesis, memory, and drafting**
+- A service-resolution workflow uses **orchestration, approvals, and recovery**
+
+This separation matters because a system that appears to "just help" may actually be retrieving regulated data, shaping judgment, and initiating workflow steps. Pattern-family clarity makes those distinctions designable and governable.
+
+## H. Failure Modes
+
+- Components are mistaken for patterns — the team debates cards and panels before defining interaction logic.
+- Everything is forced into chat, even when retrieval, comparison, monitoring, or drafting would be better expressed differently.
+- Recommendation and execution blur together, making it hard to tell when the system is influencing judgment versus changing system state.
+- Recovery is under-designed, so products demo well but break under real operational complexity.
+
+## I. References
+
+- Microsoft HAX Toolkit — Design Patterns — https://www.microsoft.com/en-us/haxtoolkit/design-patterns/
+- Microsoft Research — Guidelines for Human-AI Interaction — https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/
+- Google PAIR — People + AI Guidebook — https://pair.withgoogle.com/guidebook/
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- IBM Carbon Design System — Patterns Overview — https://carbondesignsystem.com/patterns/overview/

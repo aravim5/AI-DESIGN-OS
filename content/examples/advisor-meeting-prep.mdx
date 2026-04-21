@@ -1,0 +1,91 @@
+---
+title: "Advisor Meeting Prep Intelligence"
+summary: "A private banking AI system that assembles relationship context, portfolio signals, service history, and suggested discussion points before a client meeting — without requiring the advisor to prompt for each piece."
+industry: "Private Banking / Wealth Management"
+patterns: ["contextual-assistant", "evidence-backed-answer", "draft-and-edit", "memory-manager", "recommendation-list"]
+jobs: ["understand", "create", "decide"]
+surfaces: ["workspace", "sidebar"]
+---
+
+## What This Example Shows
+
+This example illustrates the full framework applied to one of the highest-value private banking use cases: preparing for a meaningful client conversation. It combines retrieval, synthesis, memory, recommendation, and generation patterns in a single coherent workflow.
+
+The scenario: a private banker has a client review meeting in 90 minutes. Instead of opening four systems and manually assembling context, the AI assembles a meeting-ready brief.
+
+## Framework Analysis
+
+| Layer | Decision |
+|---|---|
+| **Job** | Understand + Create (comprehend the relationship, produce a brief) |
+| **Pattern Family** | Retrieval + Synthesis + Memory + Recommendation + Generation |
+| **Modality** | Visual summary (primary) + Text + Chart |
+| **Surface** | Workspace for deep prep; Sidebar for quick-reference during meeting |
+| **Autonomy** | Level 3 — Prepare (assemble, draft, and suggest; advisor decides and sends) |
+| **Trust** | Source-linked summaries; data freshness visible; editability throughout |
+| **Context** | Client/household entity, portfolio data, CRM engagement, service history, prior meeting notes, open follow-ups |
+
+## What the System Does
+
+**Brief assembly (Workspace — Prepare):**
+1. Pulls household summary: relationship overview, AUM, key holdings, portfolio drift since last meeting
+2. Surfaces engagement signals: days since last meaningful contact, recent responsiveness, open service items
+3. Retrieves prior meeting context: last agenda, commitments made, unresolved follow-ups (Memory Manager)
+4. Surfaces relevant market or relationship events: maturities, life events, recent large transactions
+5. Suggests discussion points ranked by relevance and recency (Recommendation List)
+
+**Draft outreach (Generation — Prepare):**
+6. Generates a suggested pre-meeting message or agenda stub (Draft and Edit)
+7. Allows advisor to review, edit, and send or save
+
+**During meeting (Sidebar — Inform + Recommend):**
+8. Sidebar remains available with quick access to: relationship facts, recent activity, open items
+9. Live note-taking or dictation captured (if voice enabled)
+
+## Design Decisions
+
+**Why Workspace, not sidebar alone?**  
+Meeting prep requires sustained work across multiple sources. A sidebar is too shallow for the full evidence assembly task. After prep is complete, the workspace collapses to a sidebar for in-meeting reference.
+
+**Why Level 3 autonomy (Prepare), not Level 2 (Recommend)?**  
+The system is not just suggesting — it is actively assembling a work product. But the banker decides what gets edited, sent, or surfaced. No external action is taken without explicit advisor decision.
+
+**Why is Memory Manager critical here?**  
+The prior meeting promises, follow-up commitments, and client-specific preferences the system carries forward are what makes this feel like a relationship intelligence tool rather than a search interface. Without this, every prep session starts from scratch.
+
+**Why show data freshness?**  
+Portfolio data, engagement signals, and CRM records may have different update latencies. The brief should show when each data source was last updated so the advisor can account for stale or incomplete signals.
+
+## Trust Requirements
+
+- All data sources in the brief must be attributable to specific systems (CRM, portfolio data, service platform)
+- Data freshness must be shown — stale data should be called out, not silently used
+- Generated discussion points and draft messages must be visually marked as AI-assembled
+- Editability must be preserved throughout — the advisor can remove, reorder, or modify any element
+- The final brief that enters the meeting should reflect the advisor's edited version, not the raw AI output
+- Prior commitments retrieved from memory must be clearable — the advisor should control what carries forward
+
+## Private Banking Regulatory Context
+
+Meeting preparation touches suitability-adjacent content. The brief should:
+- Separate factual retrieval (what happened) from AI interpretation (what it means)
+- Not characterize portfolio performance or risk in ways that could be construed as regulated advice
+- Support the advisor's own judgment — not replace it with confident AI assertions
+
+If the brief surfaces opportunity signals (new cash, maturing deposit, product fit), those should be framed as signals for the advisor to evaluate — not recommendations the system is making.
+
+## Common Failure Modes
+
+- **Generic prep** — system assembles data but no interpretation; advisor still has to read everything
+- **Stale data without disclosure** — brief uses outdated signals; advisor makes a call on old context
+- **Memory overreach** — system carries forward commitments the advisor has already resolved or reconsidered
+- **Too long a brief** — advisor cannot scan it before the meeting; key signals buried in noise
+- **No edit path** — advisor wants to reorder priorities but cannot; brief feels rigid
+
+## What Success Looks Like
+
+- Banker opens the workspace 90 minutes before a meeting, reviews the pre-assembled brief in 5–8 minutes
+- Makes two edits: removes one outdated follow-up item, reorders the discussion priority
+- Sends the pre-meeting email using the system-drafted message with light edits
+- In-meeting, uses the sidebar for quick lookups without disrupting the conversation flow
+- Post-meeting, dictates a short recap note that gets structured and saved to the next meeting's memory context

@@ -1,0 +1,78 @@
+---
+title: "Draft → Review → Send"
+summary: "The system accelerates content creation with an AI-generated draft; the human reviews, edits, and commits the final artifact."
+workflowShape: "Draft → Human Edit → Policy or Style Check → Send / Publish / Save"
+patterns: ["draft-and-edit", "inline-suggestion", "approval-checkpoint", "audit-history-view"]
+jobs: ["create", "collaborate", "execute"]
+surfaces: ["workspace", "sidebar"]
+trustLevel: 3
+autonomyLevel: 3
+status: "stable"
+---
+
+## Purpose
+
+Use this recipe when the system can accelerate content creation but the final artifact still belongs to the human or organization. The review step must preserve full editability and human accountability.
+
+This is the right recipe for outbound communications, meeting summaries, reports, announcements, and any content that will be seen by people outside the immediate workflow.
+
+## Workflow Shape
+
+```
+Draft → Human Edit → Policy or Style Check → Send / Publish / Save
+```
+
+## Primary Patterns
+
+1. **Draft and Edit** — AI-generated first draft
+2. **Inline Suggestion** — local refinements during editing
+3. **Approval Checkpoint** — optional review gate for sensitive or regulated content
+4. **Audit / History View** — record of what was drafted, edited, and sent
+
+## Inputs Required
+
+- Intent or prompt
+- Source context (meeting notes, record data, prior communications)
+- Tone, format, and policy constraints
+- Recipient or publication context
+- Required facts or references
+
+## Outputs
+
+- Reviewed and edited artifact
+- Send or publish action with confirmation
+- Optional: audit record of AI contribution and human edits
+
+## Autonomy Level
+
+**Level 3 — Prepare.** The system drafts and refines. The human retains full control over the final artifact. Nothing is sent without explicit human commitment.
+
+## Trust Requirements
+
+- Draft must be visually marked as AI-generated
+- Edit history must be preserved — user changes must not be silently overwritten
+- Policy or compliance check must be inspectable — user should see what was flagged and why
+- The "send" step must be clearly distinct from editing
+- For high-risk content: Approval Checkpoint added before send
+
+## Example Scenario
+
+After a client call, a relationship manager asks the system to draft a follow-up email. The system generates a draft referencing key topics from the meeting. The manager edits tone and adds a specific commitment. A compliance check flags one phrase; the manager accepts the suggested revision. The manager reviews the final version and sends.
+
+## Modality and Surface Variants
+
+- **Workspace** — full drafting environment with version history
+- **Sidebar draft panel** — contextual generation adjacent to current view
+- **Voice input** — dictate key points; system generates structured draft
+
+## Failure Modes
+
+- Draft appears authoritative even when low confidence or missing key facts
+- Review is too shallow for sensitive outbound communication
+- Edits are overwritten by re-generation without clear diffing
+- Send step is too close to generate step — user sends without reading
+
+## Related Recipes
+
+- Ask → Evidence → Action
+- Agent Plan → Checkpoint → Execute

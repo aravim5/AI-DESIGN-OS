@@ -1,0 +1,97 @@
+---
+title: "Audit / History View"
+summary: "Exposes what the system did, what the user did, what changed, and why — making interaction and action history reviewable over time."
+patternFamily: "recovery-continuity"
+jobs: ["monitor", "recover", "understand"]
+modalities: ["text", "data-visualization"]
+surfaces: ["workspace", "sidebar"]
+trustLevel: 4
+autonomyLevel: 1
+enterpriseRisk: "high"
+status: "stable"
+relatedPatterns: ["approval-checkpoint", "memory-manager", "long-running-task-tracker"]
+relatedRecipes: ["signal-explanation-approval", "agent-plan-checkpoint-execute"]
+---
+
+## Definition
+
+Audit / History View is the pattern that exposes what the system did, what the user did, what changed, why it changed, and how the interaction or action history can be reviewed later.
+
+## Why It Matters
+
+Enterprise AI systems need memory not only for personalization, but also for accountability. In regulated or high-consequence environments, teams need to inspect actions, approvals, revisions, and model-influenced changes over time.
+
+## When to Use
+
+- AI output influences action or state change
+- A user may need to review prior decisions
+- Supervisors or auditors need traceability
+- Recovery from error requires knowing what happened
+
+## When Not to Use
+
+- The interaction is ephemeral and non-consequential
+- No meaningful state change, action, or review occurred
+
+## Inputs and Minimum Context
+
+The pattern needs: event history, actor identity, timestamp, before and after state, rationale or evidence, approval record, and policy annotations where applicable.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User opens history, audit, or prior activity view
+- **Output:** Chronological or grouped event stream
+- **Support:** Filters by actor, action type, workflow, date, or entity
+- **Controls:** Inspect details, compare versions, export, escalate, or restore where allowed
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **No history** | No prior activity recorded |
+| **Activity list** | Events shown in sequence |
+| **Event expanded** | Full detail for one event |
+| **Filtered history** | Scoped to actor, type, or date |
+| **Version comparison** | Before and after state visible |
+| **Archived** | Older history in long-term store |
+
+## Trust and Governance Requirements
+
+The view should clearly separate:
+- Model suggestion
+- User action
+- Automated action
+- Approved action
+- Final state change
+
+Users must be able to understand not only what happened, but how much of it was AI-influenced.
+
+## Surface and Modality Variants
+
+- **Workspace or history page** — canonical form; full chronological view
+- **Sidebar timeline** — contextual history for current record
+- **Inline change log** — small-scope review adjacent to content
+- **Exportable log** — where governance requires durable records
+
+## Enterprise Example
+
+A compliance reviewer opens a history view showing the original AI recommendation, the manager's edits, the approval step, and the final workflow outcome — all with timestamps.
+
+## Anti-Patterns
+
+- Mixing human and AI actions without distinction
+- Logging only the final outcome — not the AI's contribution
+- No rationale tied to actions
+- History that cannot be filtered or understood
+
+## Failure Modes
+
+- Teams cannot reconstruct what happened after an error
+- Users cannot challenge decisions because the trail is incomplete
+- Compliance review becomes manual and costly due to insufficient logging
+
+## Private Banking Translation
+
+A supervisory user reviews the full history of an AI-assisted client communication: draft generation, edits by the advisor, cited account facts, approval by reviewer, and final send event — all with timestamps and actor identities.
+
+Audit / History View is a compliance requirement in private banking, not a nice-to-have. For any AI-influenced action that touches client-facing content, suitability-adjacent logic, or regulated workflow steps, the history view must preserve: (1) what the AI generated or suggested; (2) what the advisor changed; (3) who approved and when; (4) what was ultimately sent or executed; and (5) what context data was used. Supervisors must be able to filter history by advisor, client, date range, and action type. Export capability is required for supervisory review and regulatory inquiry response.

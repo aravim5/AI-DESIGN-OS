@@ -1,0 +1,91 @@
+---
+title: "Inline Suggestion"
+summary: "A contextual recommendation embedded directly inside the user's current workflow, object, or content surface."
+patternFamily: "recommendation"
+jobs: ["create", "execute"]
+modalities: ["text"]
+surfaces: ["inline"]
+trustLevel: 2
+autonomyLevel: 2
+enterpriseRisk: "low"
+status: "stable"
+relatedPatterns: ["draft-and-edit", "assisted-form-fill", "contextual-assistant"]
+relatedRecipes: ["draft-review-send"]
+---
+
+## Definition
+
+Inline Suggestion is a contextual recommendation pattern embedded directly inside the user's current workflow, object, or content surface.
+
+## Why It Matters
+
+Not every AI interaction should pull users into a separate assistant, panel, or chat. Many of the highest-value AI moments are small, local, and embedded in the work itself. Inline Suggestion supports augmentation over interruption and integrates support into the flow of work.
+
+## When to Use
+
+- The user is already engaged in a task
+- The suggestion is local to the current object
+- Immediate adoption or rejection is possible
+- A full assistant experience would be excessive
+
+## When Not to Use
+
+- The recommendation affects multiple entities
+- The user needs rationale across several data sources
+- The outcome has high compliance or financial risk
+- The user must review alternatives side by side
+
+## Inputs and Minimum Context
+
+The pattern needs: current artifact or field, local intent, surrounding content, domain rule context, and user permissions.
+
+## Core Interaction Anatomy
+
+- **Trigger:** Cursor focus, field interaction, selection, draft state, or a system-detected opportunity
+- **Output:** One suggestion or a small set of alternatives
+- **Controls:** Accept, edit, reject, ask why, show more, or never suggest again
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Idle** | No suggestion available |
+| **Suggestion available** | Suggestion shown inline |
+| **Applied** | User accepted suggestion |
+| **Dismissed** | User rejected this suggestion |
+| **Low confidence** | No suggestion shown |
+| **Policy-hidden** | Suggestion suppressed by permissions |
+
+## Trust and Governance Requirements
+
+Inline Suggestion must remain obviously optional. For AI-generated content, the system should mark AI presence where appropriate and preserve full editability.
+
+## Surface and Modality Variants
+
+- **Inline text** — canonical form; appears within or adjacent to content
+- **Form-field suggestion** — beneath or within the field
+- **Spreadsheet / grid** — suggestion in a cell
+- **Voice** — spoken prompt offering a rewrite
+
+## Enterprise Example
+
+While drafting a customer response, the system suggests a more concise opening sentence and a missing reference to the case number.
+
+## Anti-Patterns
+
+- Too many suggestions at once
+- Suggestions that block the user's own writing
+- No easy reject path
+- Suggestions with no relationship to user intent
+
+## Failure Modes
+
+- Users treat suggestions as boilerplate and stop reviewing them
+- Local suggestions create inconsistency with broader workflow policy
+- The pattern becomes noisy and gets mentally disabled
+
+## Private Banking Translation
+
+While preparing outreach, the advisor gets an inline suggestion to mention a recent liquidity event and remove a generic phrase that weakens personalization.
+
+In private banking, Inline Suggestion is most appropriate for low-risk content improvements — subject line optimization, personalization prompts, missing fact reminders, and tone adjustments. It should not be used for compliance-sensitive language, regulated product recommendations, or content that requires supervisor review before sending. Keep suggestions obviously optional and never auto-apply without explicit user acceptance.

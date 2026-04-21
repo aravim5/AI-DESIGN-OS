@@ -1,0 +1,94 @@
+---
+title: "Guided Flow"
+summary: "A stepwise assistance pattern that helps the user complete a multi-stage task, especially when the process is conditional, complex, or policy-sensitive."
+patternFamily: "workflow-assistance"
+jobs: ["execute", "create", "collaborate"]
+modalities: ["text", "multimodal"]
+surfaces: ["workspace", "sidebar", "overlay"]
+trustLevel: 3
+autonomyLevel: 3
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["assisted-form-fill", "approval-checkpoint", "long-running-task-tracker"]
+relatedRecipes: ["agent-plan-checkpoint-execute"]
+---
+
+## Definition
+
+Guided Flow is a stepwise assistance pattern that helps the user complete a multi-stage task, especially when the process is conditional, complex, or policy-sensitive.
+
+## Why It Matters
+
+Enterprise work often involves progression, not just answers. Guided Flow turns AI from a responder into a structured helper that keeps work moving without hiding the underlying process.
+
+## When to Use
+
+- The task spans multiple steps
+- The user benefits from progression and checklists
+- There are conditional branches
+- The system can pre-compute helpful next steps
+- The work is too important for a single-shot answer
+
+## When Not to Use
+
+- The user only needs a one-step answer
+- The task is open-ended exploration
+- The work is better served by a comparison or drafting surface
+- The process is so rigid that a normal form is enough
+
+## Inputs and Minimum Context
+
+The pattern needs: workflow stage, process policy or business rules, required documents or records, role permissions, unresolved dependencies, and prior user progress.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User starts or resumes a multi-step task
+- **Output:** Visible sequence of steps, current status, and recommended next action
+- **Controls:** Continue, skip, review, ask for explanation, assign, pause, or escalate
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Not started** | Flow available but not begun |
+| **In progress** | Step completed; next shown |
+| **Blocked** | Dependency unresolved |
+| **Awaiting input** | User action required |
+| **Requires review** | Checkpoint before next step |
+| **Completed** | All steps done |
+| **Resumed** | Workflow restored after interruption |
+| **Failed** | Missing dependency; recovery shown |
+
+## Trust and Governance Requirements
+
+Guided Flow must always preserve user orientation: where they are, what is done, what remains, and what the system is doing on their behalf. If the system pre-completes steps, that should be explicit. If the flow enters a higher-risk action, it should introduce review or approval checkpoints.
+
+## Surface and Modality Variants
+
+- **Workspace** — full guided progression with visible step map
+- **Sidebar** — contextual lighter flows adjacent to current work
+- **Overlay** — short flows that temporarily focus attention
+- **Voice** — guidance only when paired with visible progress representation
+
+## Enterprise Example
+
+A service operations user is guided through issue triage: identify category, inspect signals, choose resolution path, and assign owner.
+
+## Anti-Patterns
+
+- Hiding the number of steps
+- Jumping the user between unrelated surfaces
+- No resume path after interruption
+- Over-automating a flow without clear control boundaries
+
+## Failure Modes
+
+- Users lose trust because they cannot tell what the system already did
+- Teams reduce a complex workflow to a shallow wizard
+- Exceptions and edge cases are not modeled, so the flow breaks under real use
+
+## Private Banking Translation
+
+A banker launches a periodic review flow. The system gathers account activity, highlights missing documents, proposes meeting prep points, and walks the banker through review completion.
+
+Guided Flow is essential for private banking's policy-sensitive processes: periodic relationship reviews, onboarding completion, KYC refresh, service escalation routing, and investment proposal workflows. The flow must always show step count, allow skipping, support pausing and resuming, and make explicit which steps have been system-completed versus human-confirmed. When the flow enters a regulated stage — such as recommendation or formal approval — it should surface an Approval Checkpoint rather than continuing silently.

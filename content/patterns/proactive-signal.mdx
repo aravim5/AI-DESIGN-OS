@@ -1,0 +1,99 @@
+---
+title: "Proactive Signal"
+summary: "A system-initiated pattern that surfaces an opportunity, anomaly, deadline, risk, or recommended attention item before the user explicitly asks."
+patternFamily: "monitoring-signal"
+jobs: ["monitor", "decide"]
+modalities: ["text", "ambient", "data-visualization"]
+surfaces: ["notification", "feed-stream", "sidebar", "ambient"]
+trustLevel: 2
+autonomyLevel: 2
+enterpriseRisk: "low"
+status: "stable"
+relatedPatterns: ["recommendation-list", "long-running-task-tracker", "evidence-backed-answer"]
+relatedRecipes: ["signal-explanation-approval"]
+---
+
+## Definition
+
+Proactive Signal is a system-initiated pattern that surfaces an opportunity, anomaly, deadline, risk, or recommended attention item before the user explicitly asks.
+
+## Why It Matters
+
+Enterprise AI should not only answer questions — it should help users notice what matters. Proactive systems can create value by reducing missed issues, but they can also create overload, false urgency, and distrust if they are noisy or unexplained.
+
+## When to Use
+
+- The system detects something the user is unlikely to notice in time
+- Surfacing the signal creates clear user value
+- The signal has a sensible threshold
+- There is a realistic next action
+
+## When Not to Use
+
+- The signal has weak business relevance
+- There is no clear next step
+- The system cannot explain the signal
+- Proactive surfacing would create more interruption than value
+
+## Inputs and Minimum Context
+
+The pattern needs: monitored entity or workflow, signal logic or threshold, timing, user role, relevance filters, and delivery preferences.
+
+## Core Interaction Anatomy
+
+- **Trigger:** System-detected change or threshold crossing
+- **Output:** Compact signal statement
+- **Rationale:** Why this matters now
+- **Controls:** Inspect, snooze, dismiss, assign, act, or tune preferences
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Newly surfaced** | Signal just appeared |
+| **Acknowledged** | User has seen it |
+| **Snoozed** | Deferred for later |
+| **Dismissed** | User decided it is not actionable |
+| **Escalated** | Routed to another person or team |
+| **Stale / unresolved** | Signal persists past expected resolution |
+| **Resolved** | Issue addressed |
+| **Historical log** | Past signals accessible |
+
+## Trust and Governance Requirements
+
+Users should know:
+- Why the signal appeared
+- How urgent it is
+- Whether it is informational or action-oriented
+- Whether they can tune or suppress similar signals
+
+## Surface and Modality Variants
+
+- **Notification** — for urgent, time-sensitive signals
+- **Feed or stream** — for ongoing awareness signals
+- **Sidebar** — for contextual exploration of a signal
+- **Dashboard tile** — for periodic review
+- **Ambient layer** — when interruption should stay low
+
+## Enterprise Example
+
+A service manager receives a signal that several high-priority tickets are likely to breach SLA within 24 hours, with the specific accounts and time remaining shown.
+
+## Anti-Patterns
+
+- Too many signals — creates noise and trains users to ignore them
+- No rationale — "You have 3 items" is not a signal
+- Mixing weak and strong signals visually
+- Using urgency styling without real urgency
+
+## Failure Modes
+
+- Notification fatigue
+- Users dismiss important signals because too many weak ones were shown
+- The system becomes performatively proactive instead of useful
+
+## Private Banking Translation
+
+An advisor gets a signal that a high-value household has had no meaningful outreach for 35 days despite a recent cash event and upcoming maturity — with a link to review and suggested next actions.
+
+Proactive Signal is the intelligence layer that transforms a passive CRM into an active advisory system. In private banking, the highest-value signals combine: inactivity + event (maturity, large inflow, life event); service risk + timeline (SLA breach, unresolved item); engagement drift + opportunity (no outreach + product fit). Signals must always explain themselves. The advisor should be able to inspect the underlying evidence, snooze the signal with a reason, and tune their signal preferences. Supervisors should be able to see signal activity across their team's book.

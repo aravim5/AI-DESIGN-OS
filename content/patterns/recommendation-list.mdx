@@ -1,0 +1,99 @@
+---
+title: "Recommendation List"
+summary: "A ranked or grouped set of suggested options, priorities, or next-best actions produced to help the user decide what to do next."
+patternFamily: "recommendation"
+jobs: ["decide", "find", "monitor"]
+modalities: ["text", "data-visualization"]
+surfaces: ["workspace", "sidebar", "feed-stream", "notification"]
+trustLevel: 3
+autonomyLevel: 2
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["comparison-workspace", "proactive-signal", "evidence-backed-answer"]
+relatedRecipes: ["find-shortlist-compare", "ask-evidence-action"]
+---
+
+## Definition
+
+Recommendation List is a ranked or grouped set of suggested options, priorities, or next-best actions produced to help the user decide what to do next.
+
+## Why It Matters
+
+Many enterprise tasks are prioritization problems, not information problems. Users need help deciding where attention should go first. Recommendation patterns create leverage by narrowing a large field into a smaller, more actionable set — but because recommendations shape user behavior, they need visible rationale, manageable confidence, and a clear line between suggestion and action.
+
+## When to Use
+
+- The user faces too many options
+- Prioritization is more valuable than exhaustive browsing
+- The system can rank or group with defensible logic
+- The user remains the decision-maker
+
+## When Not to Use
+
+- The user needs deep comparison, not ranking
+- The ranking criteria are not explainable
+- The system cannot distinguish urgency from importance
+- Action should happen automatically without human choice
+
+## Inputs and Minimum Context
+
+Minimum inputs: candidate set, ranking criteria, time horizon, role and goals, and business constraints.
+
+Helpful context: workload, current priorities, recent activity, user preferences, and prior response to recommendations.
+
+## Core Interaction Anatomy
+
+- **Trigger:** Explicit query or system-generated prioritization need
+- **System output:** Ranked or grouped list
+- **Rationale:** Top reasons per item
+- **Controls:** Re-rank, filter, compare, dismiss, act, or save
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Loading** | Generating ranked list |
+| **Ranked success** | Full list shown with rationale |
+| **Low-confidence ranking** | Caveat on ordering quality |
+| **Sparse results** | Few items match criteria |
+| **Blocked** | Insufficient data to rank |
+| **Dismissed / snoozed** | Item deprioritized by user |
+| **Historical** | Prior recommendation set accessible |
+
+## Trust and Governance Requirements
+
+Users should know:
+- Why items are ranked
+- What time horizon or business objective the ranking reflects
+- Whether the list is personalized
+- Whether important data was unavailable
+
+## Surface and Modality Variants
+
+- **Workspace or dashboard** — scanning a full list
+- **Sidebar** — contextual priority suggestions
+- **Notification or feed** — top one to three items for awareness
+- **Voice** — top-three summary
+
+## Enterprise Example
+
+A manager opens a daily operations panel and sees the top five contracts likely to slip this month, each with a short explanation of the risk signal.
+
+## Anti-Patterns
+
+- Opaque ranking logic
+- Too many recommendations — more than ten becomes a list, not a recommendation
+- Mixing opportunity, risk, and service items in one undifferentiated list
+- Using one score to stand in for all nuance
+
+## Failure Modes
+
+- Users ignore recommendations because they feel arbitrary
+- Users follow recommendations blindly without reviewing context
+- Teams treat ranking as sufficient when comparison is actually needed
+
+## Private Banking Translation
+
+An advisor sees a prioritized list of households for outreach based on liquidity events, inactivity, meeting recency, and upcoming maturities — each with a short explanation of why they appear.
+
+In private banking, the Recommendation List pattern is the standard surface for daily book management, next-best-action prioritization, and opportunity triage. The ranking must be transparent and explainable — advisors regularly need to defend or share their outreach logic with supervisors or team leads. Avoid mixing relationship-risk items with pure opportunity items in the same list without clear category separation.

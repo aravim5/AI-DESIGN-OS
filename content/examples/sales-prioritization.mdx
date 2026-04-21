@@ -1,0 +1,64 @@
+---
+title: "Sales Prioritization Copilot"
+summary: "A recommendation system that helps sales managers identify which accounts need attention today, with evidence-backed rationale."
+industry: "B2B Sales / CRM"
+patterns: ["recommendation-list", "evidence-backed-answer", "proactive-signal"]
+jobs: ["decide", "monitor", "understand"]
+surfaces: ["workspace", "sidebar", "feed-stream"]
+---
+
+## What This Example Shows
+
+This example illustrates how to compose the **Recommendation List**, **Evidence-Backed Answer**, and **Proactive Signal** patterns into a coherent sales prioritization experience.
+
+The scenario: a B2B sales manager starts their day by reviewing which accounts in their portfolio need attention. Instead of manually scanning a CRM, an AI layer surfaces a ranked list of priorities with reasons.
+
+## Framework Analysis
+
+| Layer | Decision |
+|---|---|
+| **Job** | Decide — prioritizing where attention goes |
+| **Pattern Family** | Recommendation + Proactive Intelligence |
+| **Modality** | Text + Data Visualization |
+| **Surface** | Workspace (primary) + Sidebar (secondary) |
+| **Autonomy** | Level 2 — Recommend |
+| **Trust** | Rationale visible; rejection path available |
+| **Context** | CRM data, engagement history, deal stage, SLA timelines |
+
+## What the System Does
+
+1. **Morning signal** — the system surfaces 3–5 accounts that changed materially overnight (deal stage update, executive activity, support ticket opened)
+2. **Ranked priority list** — a broader list of accounts ranked by urgency, with top reasons per account
+3. **Evidence drill-down** — tapping any account shows the specific signals that drove its ranking
+4. **Action suggestions** — each account offers suggested next steps (draft email, log call, schedule meeting)
+
+## Design Decisions
+
+**Why Recommendation List, not a dashboard with all accounts?**
+A full account list shifts cognitive burden to the user. The recommendation list pre-filters to what matters today, reducing decision fatigue.
+
+**Why Evidence-Backed Answer alongside each recommendation?**
+Sales managers need to understand *why* an account is ranked before they act. A rank without a reason creates distrust and low adoption.
+
+**Why Autonomy Level 2, not higher?**
+The manager must remain the decision-maker. The system recommends outreach; it does not send messages or log calls without explicit user action.
+
+## Trust Requirements
+
+- Ranking logic must be inspectable — users should see the factors, not just the score
+- Evidence must link to source records in the CRM
+- Suggestions that involve external actions (drafting messages) need the Draft and Edit pattern, not auto-send
+- A "snooze" or "not relevant" control lets users tune the system over time
+
+## Common Failure Modes
+
+- **Opaque ranking** — users don't understand why Account A is ranked above Account B; adoption drops
+- **Stale data** — yesterday's signals surfaced as today's urgency; user makes a call on outdated information
+- **Too many "priorities"** — a list of 20 "urgent" items is not prioritization; it is a list
+
+## What Success Looks Like
+
+- Manager reviews the ranked list and selects 3 accounts to focus on — in under 5 minutes
+- Each drill-down produces a clear, traceable reason
+- Actions taken from the surface are logged back to CRM
+- Over time, the system learns which signals the manager finds actionable

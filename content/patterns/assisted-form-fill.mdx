@@ -1,0 +1,98 @@
+---
+title: "Assisted Form Fill"
+summary: "A structured-input pattern where the system proposes or pre-populates form values using available context, while preserving human review and correction."
+patternFamily: "workflow-assistance"
+jobs: ["execute", "create"]
+modalities: ["text", "data-visualization"]
+surfaces: ["inline", "workspace", "sidebar"]
+trustLevel: 3
+autonomyLevel: 3
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["guided-flow", "draft-and-edit", "approval-checkpoint"]
+relatedRecipes: ["draft-review-send"]
+---
+
+## Definition
+
+Assisted Form Fill is a structured-input pattern in which the system proposes or pre-populates form values using available context, while preserving human review and correction.
+
+## Why It Matters
+
+Forms are a major source of friction in enterprise systems. AI can reduce repetitive input work, but only if the output remains inspectable, editable, and clearly attributable.
+
+## When to Use
+
+- The task requires structured input
+- Source data already exists elsewhere
+- The user still needs final control
+- Repetitive entry is a real burden
+
+## When Not to Use
+
+- The output is primarily narrative
+- Fields require user judgment not inferable from context
+- The data source is unreliable
+- The form carries hidden compliance sensitivity that prefill would obscure
+
+## Inputs and Minimum Context
+
+The pattern needs: current record, source systems or fields, business rules, user role, editable schema, and confidence per suggested field.
+
+## Core Interaction Anatomy
+
+- **Trigger:** Open form or create new structured record
+- **Output:** Field-by-field prefill or suggested completion
+- **Controls:** Accept all, accept field, reject field, edit field, inspect source, or clear suggestion
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Empty form** | No suggestions yet |
+| **Form with suggestions** | Prefilled values shown |
+| **Accepted** | Suggestions confirmed |
+| **Partially edited** | Some fields modified |
+| **Blocked** | Insufficient data for suggestions |
+| **Conflicting sources** | Multiple possible values shown |
+| **Submission-ready** | Form complete |
+| **Submitted** | Record created; history available |
+
+## Trust and Governance Requirements
+
+The pattern should distinguish:
+- **Known values** pulled from verified records
+- **Inferred values** suggested by the model
+- **User-entered final values**
+
+That distinction matters for accountability and error recovery.
+
+## Surface and Modality Variants
+
+- **Form page** — canonical form; suggestions inline with fields
+- **Sidebar assistant** — progressive suggestions adjacent to form
+- **Grid / spreadsheet** — inline cell suggestion
+- **Voice** — guided completion with confirmation before submission
+
+## Enterprise Example
+
+An employee opens an internal request form and sees department, manager, system access needs, and prior project references pre-filled from existing records.
+
+## Anti-Patterns
+
+- Accepting inferred values silently without user review
+- No provenance shown for important fields
+- Pre-filling every field regardless of confidence
+- Making correction harder than manual entry
+
+## Failure Modes
+
+- Incorrect data propagates across systems
+- Users trust form suggestions too quickly
+- Teams treat assisted fill as auto-submit
+
+## Private Banking Translation
+
+A banker opens an onboarding package and finds household details, account basics, contact preferences, and known documentation fields already suggested from approved internal records.
+
+In private banking, Assisted Form Fill is most valuable for reducing redundant data entry in KYC forms, onboarding packets, service request templates, periodic review checklists, and CRM update flows. Field suggestions must be clearly attributed to their source system. Advisors must be able to accept, reject, or edit each field individually. Fields touching regulated data — such as suitability classifications, source-of-funds information, or product recommendations — should never be pre-filled without explicit reviewer confirmation.

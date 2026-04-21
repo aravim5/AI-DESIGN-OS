@@ -1,0 +1,95 @@
+---
+title: "Low-Confidence Recovery"
+summary: "Used when the system cannot safely produce a high-confidence answer and must guide the user toward clarification, narrowing, or escalation."
+patternFamily: "recovery-continuity"
+jobs: ["recover", "ask"]
+modalities: ["text"]
+surfaces: ["inline", "sidebar", "overlay"]
+trustLevel: 3
+autonomyLevel: 1
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["evidence-backed-answer", "guided-flow", "contextual-assistant"]
+relatedRecipes: []
+---
+
+## Definition
+
+Low-Confidence Recovery is the pattern used when the system cannot safely produce a high-confidence answer, recommendation, match, or action and must instead guide the user toward clarification, narrowing, or escalation.
+
+## Why It Matters
+
+A polished but wrong answer is more dangerous than an honest partial answer. Systems that never surface uncertainty erode trust over time and create conditions for consequential errors. Good recovery design is as important as good answer design.
+
+## When to Use
+
+- Confidence is materially low
+- Multiple interpretations are plausible
+- Source data conflicts
+- Matching or inference is incomplete
+- Policy or permission gaps prevent a safe output
+
+## When Not to Use
+
+- The uncertainty is minor and the system can still provide a clearly qualified answer
+- The issue is purely technical downtime, which needs a conventional failure pattern
+
+## Inputs and Minimum Context
+
+The pattern needs: failed or low-confidence output, uncertainty source, candidate interpretations, missing inputs, policy restrictions, and alternate next steps.
+
+## Core Interaction Anatomy
+
+- **Trigger:** Confidence below threshold or ambiguity detected
+- **Output:** Transparent explanation of what is uncertain
+- **Controls:** Clarify, choose option, inspect evidence, retry, hand off, or narrow scope
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Uncertainty detected** | System identifies ambiguity or low confidence |
+| **Clarification requested** | User asked to provide more context |
+| **Options presented** | System offers candidate interpretations to choose from |
+| **Partial recovery** | Best available answer shown with clear caveat |
+| **Escalation** | Routed to human or alternative workflow |
+| **Abandoned** | User chose to stop |
+| **Logged** | Uncertainty captured for model improvement |
+
+## Trust and Governance Requirements
+
+The pattern should state:
+- What is unclear
+- What would improve confidence
+- Whether the issue is ambiguity, missing data, or permission
+- Whether proceeding would be unsafe
+
+## Surface and Modality Variants
+
+- **Inline** — for lightweight clarification within current context
+- **Sidebar** — for structured recovery with options
+- **Overlay** — when recovery blocks further progression
+- **Voice** — should ask for clarification rather than guess
+
+## Enterprise Example
+
+A procurement assistant cannot confidently determine whether two vendor records are duplicates and asks the user to choose between three likely matches, showing the overlapping fields that caused ambiguity.
+
+## Anti-Patterns
+
+- Fake confidence — displaying a polished answer despite uncertainty
+- Vague "something went wrong" messaging with no recovery path
+- No guidance on how to resolve the ambiguity
+- Forcing the user to start over completely
+
+## Failure Modes
+
+- Users stop trusting the system because it sounds confident until it fails
+- Users make preventable mistakes because ambiguity was not surfaced
+- Teams treat low confidence as a backend concern rather than a design concern
+
+## Private Banking Translation
+
+The system cannot confidently match a household request to the correct family structure because two related entities share similar names and overlapping accounts. It shows both candidates, explains the ambiguity, and asks the banker to confirm before proceeding.
+
+In private banking, Low-Confidence Recovery matters most when: household entity disambiguation is unclear; account ownership is shared or complex; service request routing is uncertain; or a recommended action would touch regulated data without clear grounds. The pattern must always show what it is uncertain about — not just that it is uncertain. The banker should be given clear options to resolve the ambiguity, not left with an error state that requires starting over.

@@ -1,0 +1,98 @@
+---
+title: "Evidence-Backed Answer"
+summary: "Pairs a direct answer with supporting rationale, source references, or traceable records needed for the user to verify or trust it."
+patternFamily: "answer"
+jobs: ["understand", "decide"]
+modalities: ["text", "data-visualization"]
+surfaces: ["sidebar", "workspace", "inline"]
+trustLevel: 3
+autonomyLevel: 1
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["quick-answer", "recommendation-list", "approval-checkpoint"]
+relatedRecipes: ["ask-evidence-action", "signal-explanation-approval"]
+---
+
+## Definition
+
+Evidence-Backed Answer pairs a direct answer with the supporting rationale, source references, or traceable records needed for the user to verify or trust it.
+
+## Why It Matters
+
+In enterprise contexts, a useful answer is often not enough. Users need to understand why the answer exists, what data informed it, and whether they can rely on it. Evidence-Backed Answer supports accountability, challenge, and decision-making in consequence-bearing workflows.
+
+## When to Use
+
+- The answer affects a decision
+- The user is likely to ask "why?"
+- The output summarizes multiple signals
+- Auditability or accountability matters
+- The user must defend or explain the answer to others
+
+## When Not to Use
+
+- The user only needs fast orientation
+- The answer is trivial and low consequence
+- Source evidence is unavailable and cannot be summarized responsibly
+
+## Inputs and Minimum Context
+
+Minimum inputs: question, source data or cited records, ranking or reasoning logic, and permission context.
+
+Helpful context: thresholds, business rules, time windows, comparable items, and prior decisions.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User asks for explanation or receives a consequential answer
+- **System output:** Answer first, evidence second
+- **Evidence block:** Sources, facts, reasoning factors, or policy basis
+- **Controls:** Expand evidence, inspect source, compare alternatives, challenge result, or save note
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Loading** | Retrieving sources and generating |
+| **Success** | Answer and evidence displayed |
+| **Low confidence** | Caveat visible; evidence quality disclosed |
+| **Blocked** | Permissions prevent full evidence display |
+| **Failure** | Cannot produce grounded answer |
+| **History** | Prior answers with evidence accessible |
+
+## Trust and Governance Requirements
+
+The pattern should show:
+- What sources informed the answer
+- What reasoning factors mattered
+- Whether anything was inferred
+- Whether the user is seeing the full evidence set or a role-limited version
+
+## Surface and Modality Variants
+
+- **Sidebar** — default layered form; answer visible, evidence expandable
+- **Workspace** — multi-source evidence review
+- **Inline** — compact why-reveal
+- **Voice** — summarize first, offer visual evidence as follow-up
+
+## Enterprise Example
+
+A revenue leader asks, *"Why is this account classified as churn risk?"* The system shows: declining usage trend, three unresolved support tickets, reduced executive engagement over 60 days, and a renewal date within 45 days.
+
+## Anti-Patterns
+
+- Burying evidence behind several clicks
+- Presenting evidence as decoration instead of support
+- Listing sources without showing what matters
+- Mixing verified facts and inferred conclusions without distinction
+
+## Failure Modes
+
+- Users distrust a correct answer because the rationale is invisible
+- Users trust an incorrect answer because the interface looks polished
+- Teams overproduce evidence and create cognitive overload
+
+## Private Banking Translation
+
+An advisor asks, *"Why is this client flagged for outreach?"* The system shows: cash buildup above threshold, no outbound contact in 28 days, a recent maturity event, and elevated product fit for a deposit solution.
+
+This pattern is especially critical in private banking because advisors regularly need to justify prioritization decisions to supervisors and to themselves. Evidence-Backed Answer is the correct baseline for any AI output that touches relationship health, opportunity signals, risk classification, or next-best-action logic. It supports suitability-adjacent reasoning and makes AI-influenced prioritization defendable.

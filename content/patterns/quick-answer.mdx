@@ -1,0 +1,96 @@
+---
+title: "Quick Answer"
+summary: "A concise response pattern for bounded questions where the user needs immediate orientation, retrieval, or summary rather than deep analysis or formal justification."
+patternFamily: "answer"
+jobs: ["ask", "find", "understand"]
+modalities: ["text", "voice"]
+surfaces: ["inline", "sidebar", "overlay"]
+trustLevel: 2
+autonomyLevel: 1
+enterpriseRisk: "low"
+status: "stable"
+relatedPatterns: ["evidence-backed-answer", "contextual-assistant", "proactive-signal"]
+relatedRecipes: ["ask-evidence-action"]
+---
+
+## Definition
+
+Quick Answer is a concise response pattern for bounded questions where the user needs immediate orientation, retrieval, or summary rather than deep analysis, workflow execution, or formal justification.
+
+## Why It Matters
+
+Enterprise users frequently need fast understanding before they need full detail. A strong Quick Answer pattern reduces friction, lowers navigation cost, and helps users stay in flow. It is especially valuable when the user's goal is to orient, confirm, or recall rather than decide or act.
+
+## When to Use
+
+- The question is narrow and well-scoped
+- The user needs a short response first
+- The risk of acting on the answer is low
+- The user is likely to ask a follow-up rather than complete a full workflow immediately
+
+## When Not to Use
+
+- The user needs evidence or auditability
+- The answer drives a high-stakes decision
+- The system is uncertain or data is incomplete
+- The task requires comparison, drafting, or execution
+
+## Inputs and Minimum Context
+
+Minimum inputs: the user question, current record or object, recent data relevant to the question, and role or permission context.
+
+Helpful context: recent activity, workflow state, entity relationships, and prior user actions.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User asks a direct question
+- **Context used:** Current page, record, workflow, and recent data
+- **System output:** A short answer, usually one to four lines
+- **Optional support:** Timestamp, status, or source reference
+- **User controls:** Expand, ask follow-up, open source item, compare, or act
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **Empty** | No question asked yet; suggested prompts may appear |
+| **Loading** | System is retrieving or generating |
+| **Success** | Answer displayed |
+| **Low confidence** | Answer shown with caveat |
+| **Blocked** | Insufficient permissions or data |
+| **Failure** | System cannot answer; recovery path shown |
+| **History** | Prior answers accessible |
+
+## Trust and Governance Requirements
+
+Quick Answer should not imply more certainty than the system has. If the answer is generated from multiple sources, the UI should allow the user to inspect more detail. If the question touches regulated or sensitive content, the pattern should gracefully step up into a more evidence-rich mode.
+
+## Surface and Modality Variants
+
+- **Inline** — near the object being discussed
+- **Sidebar** — compact contextual response panel
+- **Overlay** — ephemeral explanation
+- **Voice** — spoken answer with option to show more
+
+## Enterprise Example
+
+A support manager asks, *"What is blocking this case?"* The system returns: *"Waiting on customer document upload since Tuesday."*
+
+## Anti-Patterns
+
+- Producing long paragraphs instead of a quick answer
+- Sounding definitive when the data is partial
+- Forcing the user into chat for a simple fact
+- Hiding the underlying scope of the answer
+
+## Failure Modes
+
+- Users over-trust an answer that lacked sufficient context
+- Teams overuse Quick Answer where evidence is required
+- The pattern becomes a generic chat response with no grounding
+
+## Private Banking Translation
+
+An advisor asks, *"What changed with the Rao household since my last review?"* The system answers: *"One large cash inflow posted two days ago, no outbound contact since last Thursday, and one service request remains open."*
+
+Quick Answer is most useful in private banking for orientation before action — not as a substitute for evidence when decisions are consequential. Appropriate for fast recall of service status, recent activity, and basic entity facts. Should step up to Evidence-Backed Answer for anything touching prioritization, risk flags, or actions that affect client relationships.

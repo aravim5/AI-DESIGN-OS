@@ -1,0 +1,93 @@
+---
+title: "Comparison Workspace"
+summary: "A multi-entity analysis pattern that helps users examine options, scenarios, candidates, or records side by side before making a decision."
+patternFamily: "recommendation"
+jobs: ["decide", "understand"]
+modalities: ["data-visualization", "text"]
+surfaces: ["workspace", "sidebar"]
+trustLevel: 3
+autonomyLevel: 2
+enterpriseRisk: "medium"
+status: "stable"
+relatedPatterns: ["recommendation-list", "evidence-backed-answer", "approval-checkpoint"]
+relatedRecipes: ["find-shortlist-compare"]
+---
+
+## Definition
+
+Comparison Workspace is a multi-entity analysis pattern that helps users examine options, scenarios, candidates, or records side by side before making a decision.
+
+## Why It Matters
+
+Many enterprise decisions are comparative. Users do not just need one answer — they need structured judgment support. A comparison surface reduces memory burden, exposes trade-offs, and helps users make decisions with more confidence.
+
+## When to Use
+
+- The user must choose among multiple options
+- Trade-offs matter
+- A list alone is insufficient
+- The user needs side-by-side evidence
+
+## When Not to Use
+
+- One best answer is enough
+- The dataset is too small for a workspace
+- The user is doing a simple lookup
+- The decision is procedural rather than comparative
+
+## Inputs and Minimum Context
+
+The pattern needs: candidate set, dimensions of comparison, user objective, ranking logic if available, evidence or source data, and selection state.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User chooses compare, or arrives from Recommendation List
+- **Output:** Side-by-side view of selected options
+- **Structure:** Shared dimensions, differences, risks, fit, and trade-offs
+- **Controls:** Add or remove option, change dimensions, weigh criteria, save comparison, or act
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **No items selected** | Workspace empty; prompts to add items |
+| **Items loaded** | Comparison shown |
+| **Dimensions applied** | Filtered or weighted view |
+| **Evidence expanded** | Detail opened for one item |
+| **Insufficient data** | One or more items lack comparable data |
+| **Comparison saved** | State preserved for later |
+| **Decision made** | User selected an option |
+
+## Trust and Governance Requirements
+
+The workspace should make trade-offs visible, not flatten them into one opaque score. If AI highlights a best option, users should still be able to inspect why.
+
+## Surface and Modality Variants
+
+- **Workspace** — canonical form; full side-by-side
+- **Sidebar mini-compare** — two or three items with key dimensions
+- **Tablet with collapsible sections** — progressive depth
+- **Voice** — summarize key trade-offs rather than replace the visual workspace
+
+## Enterprise Example
+
+A procurement lead compares three vendor options across cost, implementation time, security posture, and support model before choosing one.
+
+## Anti-Patterns
+
+- Showing too many dimensions without hierarchy
+- Collapsing everything into one composite score
+- Comparing items that are not truly comparable
+- Letting the workspace become a dense table with no interpretation
+
+## Failure Modes
+
+- Users revert to guesswork because the workspace is too complex
+- Teams mistake scoring for comparison
+- The pattern overwhelms users instead of helping judgment
+
+## Private Banking Translation
+
+An advisor compares several households for outreach based on opportunity size, engagement recency, liquidity events, and relationship risk — then selects the most timely targets for the week.
+
+In private banking, Comparison Workspace supports two primary use cases: (1) **outreach prioritization** — comparing households by multiple dimensions before deciding who to call; and (2) **product option comparison** — comparing product alternatives for a specific client need. The workspace should surface trade-offs, not flatten them into a single score. Show each dimension explicitly so the advisor can weight their own priorities. The workspace should support saving a comparison for later review or sharing with a specialist.

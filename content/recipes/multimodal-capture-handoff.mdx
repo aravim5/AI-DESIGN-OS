@@ -1,0 +1,107 @@
+---
+title: "Multimodal Capture → Interpretation → Human Handoff"
+summary: "Work begins from messy real-world input — voice, image, or file. The system converts raw input into structured workflow-ready context, then routes it to the right human continuation."
+workflowShape: "Capture (voice/image/file) → Interpret → Confirm → Route → Human continuation"
+patterns: ["assisted-form-fill", "low-confidence-recovery", "approval-checkpoint", "guided-flow"]
+jobs: ["create", "execute", "collaborate"]
+surfaces: ["workspace", "sidebar", "notification"]
+trustLevel: 3
+autonomyLevel: 3
+status: "stable"
+---
+
+## Purpose
+
+Use this recipe when work begins from messy real-world input rather than typed commands. The system should convert raw multimodal input into structured, workflow-ready context while keeping confirmation and escalation explicit.
+
+This recipe is especially useful for field-based workers, mobile users, and scenarios where information arrives in non-standard forms: spoken notes, photographs, scanned documents, or mixed-input combinations.
+
+## Workflow Shape
+
+```
+Capture (voice/image/file) → Interpret → Confirm → Route → Human continuation
+```
+
+## Primary Patterns
+
+1. **Assisted Form Fill** — for structuring interpreted content into usable records
+2. **Low-Confidence Recovery** — when interpretation is uncertain and needs confirmation
+3. **Approval Checkpoint** — before routing to downstream workflows
+4. **Guided Flow** — to walk the receiving human through continuation steps
+
+## Inputs Required
+
+- Raw multimodal input: voice recording, photograph, scanned document, or uploaded file
+- Capture context: who captured, when, where, what type of work it relates to
+- Target workflow or system for routing
+- Role and permission context for both the sender and receiver
+
+## Outputs
+
+- Structured interpretation of the raw input
+- Confidence signal on interpretation quality
+- Routed work item with full context bundle for human continuation
+- Optional: confirmation from the originating user before routing
+
+## Autonomy Level
+
+**Level 3 — Prepare.** The system interprets, structures, and prepares the handoff — but the human confirms the interpretation before routing and the receiving human takes the continuation action.
+
+## Trust Requirements
+
+- Interpretation must be inspectable — the user should see what the system extracted from the raw input
+- Confidence level must be disclosed when interpretation is uncertain
+- Confirmation must occur before downstream routing — the original input should not disappear
+- The handoff bundle must include the original asset (recording, image, file) alongside the structured interpretation
+- The receiving human must be able to see all context assembled by the system, not just the interpreted output
+
+## Example Scenarios
+
+**Field technician:** A field technician photographs equipment damage. The system interprets the issue type, extracts location and asset details, proposes a severity classification, asks the technician to confirm extracted details, then routes the structured case to a specialist with the original photo attached.
+
+**Mobile advisor:** An advisor clips a screen with portfolio changes, dictates a note, and the system combines both into a structured action item — confirming interpretation before routing to the service team queue.
+
+**Document intake:** A client uploads a scanned account statement. The system extracts key figures and dates, identifies what they relate to, confirms the extraction with the banker, and pre-populates the relevant review or onboarding fields.
+
+## Modality and Surface Variants
+
+- **Voice + workspace** — spoken capture with a structured review workspace for confirmation
+- **Image + sidebar** — photo intake with an inline interpretation panel
+- **File + guided flow** — document upload that initiates a structured completion workflow
+- **Mixed input + notification** — system alerts recipient when handoff is ready for continuation
+
+## Human Handoff Specification
+
+Human handoff in this recipe is not merely "send to person." The receiving human should inherit:
+1. The original captured asset (audio file, image, document)
+2. The system's interpretation with confidence signal
+3. Completed extraction fields
+4. Pending confirmation items or open uncertainties
+5. Recommended next action for the continuation
+
+The receiving human should not need to reconstruct context from scratch.
+
+## Failure Modes
+
+- Interpretation loses nuance from the original input — especially voice tone or image context
+- Confirmation is skipped and incorrect structure is propagated downstream
+- Handoff omits the original asset, forcing the human to reconstruct context
+- The system routes with false confidence when interpretation was ambiguous
+- The recipient cannot inspect what the system understood before acting
+
+## Private Banking Translation
+
+This recipe maps directly to high-frequency private banking workflows where information arrives in non-standard forms:
+
+- **Ask + evidence + action:** An advisor on mobile dictates notes after a client call → system structures into CRM update + follow-up task → advisor confirms → system routes to service team
+- **Meeting photo:** Advisor photographs a whiteboard from a client meeting → system interprets agenda points, portfolio sketches, or action items → confirms with advisor → creates structured notes
+- **Document intake:** Client sends a scanned investment statement → system extracts holdings, dates, and totals → banker confirms accuracy → pre-populates the account review workflow
+- **Service routing:** Service team receives a complex request via email with attachments → system interprets, classifies, and structures → supervisor confirms routing decision → routes to appropriate specialist with full context bundle
+
+The critical principle: the original input should always be preserved and accessible alongside the structured interpretation. In regulated environments, the raw capture may be the primary evidence record.
+
+## Related Recipes
+
+- Draft → Review → Send (for output creation after interpretation)
+- Signal → Explanation → Approval (for escalation workflows)
+- Agent Plan → Checkpoint → Execute (for multi-step follow-through)

@@ -1,0 +1,93 @@
+---
+title: "The Job Model"
+layer: "jobs"
+summary: "The Job Model defines the durable form of work an enterprise AI system is meant to support. It answers: What is the user actually trying to accomplish right now?"
+order: 1
+---
+
+## A. Definition
+
+The Job Model defines the durable form of work an enterprise AI system is meant to support. It answers the question: **What is the user actually trying to accomplish right now?**
+
+A job is not a feature, interface mode, or branded AI capability. It is the underlying progress the user is trying to make, independent of whether the final experience appears in chat, inline UI, a workflow, or an agentic system.
+
+## B. Why It Matters
+
+Enterprise AI breaks when teams design from interface ideas rather than from work. Products become collections of AI features instead of systems that help people make progress on real tasks.
+
+The Job Model is the anchor for the rest of the framework because it keeps the design focused on work intent before patterns, modalities, surfaces, autonomy, or controls are chosen. This aligns with Jobs-to-be-Done thinking and with Microsoft's human-AI guidance, which emphasizes supporting users across distinct moments of work rather than through one generic interface.
+
+## C. What Belongs Here
+
+- Durable work intents: **ask, find, understand, decide, create, execute, monitor, remember, collaborate, recover**
+- Completion conditions for the work — whether the user needs an answer, a recommendation, a draft, a resolved workflow step, or a safe recovery path
+
+## D. What Does Not Belong Here
+
+- UI containers such as sidebars, feeds, overlays, and workspaces
+- Interaction patterns such as retrieval, recommendation, summarization, or orchestration
+- Output forms such as text, chart, image, or voice
+- Product labels such as "assistant," "copilot," or "agent"
+
+## The Ten Jobs
+
+| Job | What the user is trying to do |
+|---|---|
+| **Ask** | Get a direct answer to a specific question |
+| **Find** | Locate records, documents, or entities |
+| **Understand** | Build comprehension of a situation, entity, or trend |
+| **Decide** | Choose between options or determine a course of action |
+| **Create** | Produce a new artifact — document, message, plan |
+| **Execute** | Complete a workflow step or trigger an action |
+| **Monitor** | Track changes, risks, or status over time |
+| **Remember** | Retain and recall commitments, preferences, or prior context |
+| **Collaborate** | Coordinate with other people or systems |
+| **Recover** | Fix an error, resolve ambiguity, or resume interrupted work |
+
+## E. Design Principles
+
+- **Define the work before the feature.** Start from the progress the user is trying to make, not from an interface shell or AI brand label.
+- **Keep jobs durable.** A good job statement should survive changes in model, UI, and interaction style.
+- **Separate information work from action work.** Asking or understanding is different from deciding, creating, or executing.
+- **Treat monitoring and recovery as first-class jobs.** Beyond-chat systems create value not only by answering but also by watching, warning, and helping users recover.
+- **Pressure-test jobs against context.** A job only becomes meaningful when role, entity, timing, and workflow stage are known.
+
+## F. Enterprise Examples
+
+- **Sales:** Determine which prospects need outreach today and why.
+- **Operations:** Understand why a service queue breached SLA this morning.
+- **HR:** Draft a manager summary of candidate interview feedback.
+- **Legal:** Retrieve and compare clauses across active contracts.
+- **IT support:** Diagnose a failed provisioning workflow and recover safely.
+
+## G. Private Banking Translation
+
+In private banking, the Job Model becomes concrete very quickly. Advisors, bankers, specialists, analysts, and supervisors are not all trying to do the same kind of work. One moment may be about understanding a household relationship; another may be about deciding who to prioritize; another may be about preparing a compliant follow-up; another may be about resolving a service issue without breaking workflow controls.
+
+Examples:
+- **Ask:** What changed since the last client interaction?
+- **Find:** All pending service items for a household
+- **Understand:** Current relationship health, engagement drift, portfolio changes
+- **Decide:** Which clients deserve priority today?
+- **Create:** A meeting brief or compliant follow-up note
+- **Execute:** A review workflow with approval
+- **Monitor:** KYC or service-risk thresholds
+- **Remember:** Prior commitments, meeting context, and preferred formats
+- **Collaborate:** Across banker, specialist, and service partners
+- **Recover:** From blocked or incomplete workflow steps
+
+This distinction matters because financial workflows often require a clean separation between understanding, recommending, and acting. A system that collapses all three into one generic interaction may feel intelligent, but it becomes harder to supervise, explain, and govern.
+
+## H. Failure Modes
+
+- Teams mistake interface modes for jobs — treating "chat" or "sidebar use" as the work itself.
+- All AI work collapses into **Ask**, which makes richer tasks like monitoring, orchestration, and recovery under-designed.
+- Jobs are written too narrowly as feature labels and do not survive product evolution.
+- The system ignores context, so the same generic job logic is applied across very different actors, entities, and workflow moments.
+
+## I. References
+
+- Christensen Institute — Jobs to Be Done — https://www.christenseninstitute.org/theory/jobs-to-be-done/
+- Microsoft Research — Guidelines for Human-AI Interaction — https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- Google PAIR — User Needs + Defining Success — https://pair.withgoogle.com/chapter/user-needs/

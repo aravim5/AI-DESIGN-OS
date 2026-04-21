@@ -1,0 +1,69 @@
+---
+title: "Compliance Review Assistant"
+summary: "An AI assistant for reviewing regulated documents and flagging issues before submission — with full audit trail and human oversight."
+industry: "Financial Services / Legal"
+patterns: ["evidence-backed-answer", "approval-checkpoint", "audit-history-view", "low-confidence-recovery"]
+jobs: ["understand", "decide", "execute"]
+surfaces: ["workspace", "sidebar"]
+---
+
+## What This Example Shows
+
+This example illustrates how to design an AI system for a high-stakes, regulated review workflow — where every recommendation must be traceable, every action must be authorized, and the system must know when it is out of its depth.
+
+The scenario: a compliance analyst uses an AI assistant to review a set of documents for regulatory obligations before they are submitted externally.
+
+## Framework Analysis
+
+| Layer | Decision |
+|---|---|
+| **Job** | Understand + Decide + Execute |
+| **Pattern Family** | Answer + Governance + Recovery |
+| **Modality** | Text (primary) |
+| **Surface** | Workspace (primary) + Sidebar (review panel) |
+| **Autonomy** | Level 4 — Execute with Approval |
+| **Trust** | Full trust stack: evidence, review, approval, audit |
+| **Context** | Document content, regulatory rules, prior decisions, reviewer role |
+
+## What the System Does
+
+1. **Document ingestion** — analyst uploads or links documents for review
+2. **Issue detection** — system identifies potential issues, gaps, or required disclosures
+3. **Evidence-backed findings** — each finding shows the specific passage, the relevant regulation, and the system's reasoning
+4. **Low-confidence flagging** — where the system is uncertain, it says so explicitly and asks for human judgment
+5. **Approval checkpoint** — analyst must explicitly approve or reject each flagged finding before any submission proceeds
+6. **Audit trail** — full record of findings shown, human decisions made, and final submission state
+
+## Design Decisions
+
+**Why Evidence-Backed Answer for each finding, not just a summary?**
+Compliance work requires traceable rationale. An analyst who cannot see what triggered a finding cannot take professional responsibility for approving or rejecting it.
+
+**Why Low-Confidence Recovery?**
+Regulations are complex and context-sensitive. The system will encounter cases where it genuinely cannot determine compliance status. Those cases must be escalated to human judgment — not resolved by the system through a confident-sounding but uncertain answer.
+
+**Why Approval Checkpoint, not auto-flag-and-proceed?**
+The analyst is professionally and legally accountable for the submission. The system cannot remove that accountability by acting autonomously. The checkpoint ensures accountability stays with the human.
+
+## Trust Requirements
+
+- Every finding must cite the specific document passage and the applicable rule
+- The system's confidence level must be disclosed — not normalized to appear high
+- The analyst must be able to challenge a finding and provide a counter-rationale
+- The audit trail must capture: finding generated, analyst review, decision made, rationale provided, submission state
+- The system must not submit documents — only the analyst can commit to submission
+
+## Common Failure Modes
+
+- **Confident-sounding but wrong findings** — analyst approves without real scrutiny; error propagates to submission
+- **Missing low-confidence disclosure** — system does not surface what it is unsure about; analyst assumes completeness
+- **Audit gap** — logging captures submission but not the AI's contribution and the analyst's review decisions
+- **Compliance theater** — approval checkpoint is a single click with no real review; accountability is formal but not substantive
+
+## What Success Looks Like
+
+- Analyst can review a complex document set faster than manual review alone
+- Every finding is traceable to source text and applicable rule
+- Uncertain cases are clearly flagged and escalated, not silently resolved
+- Audit trail supports supervisor review, regulatory inquiry, or error investigation
+- System gets better over time as analyst feedback is captured

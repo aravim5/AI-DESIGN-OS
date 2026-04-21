@@ -1,0 +1,78 @@
+---
+title: "Signal → Explanation → Approval"
+summary: "The system detects an issue or opportunity, explains it, and pauses for human authorization before any action proceeds."
+workflowShape: "Signal → Triage Summary → Explanation → Approval Checkpoint → Execute or Route"
+patterns: ["proactive-signal", "evidence-backed-answer", "approval-checkpoint", "audit-history-view"]
+jobs: ["monitor", "decide", "execute"]
+surfaces: ["notification", "sidebar", "workspace"]
+trustLevel: 4
+autonomyLevel: 4
+status: "stable"
+---
+
+## Purpose
+
+Use this recipe when the system detects an issue, risk, or opportunity and a human must explicitly authorize the next step. This is especially valuable for compliance-sensitive, financially material, or customer-impacting workflows.
+
+This is the right recipe for any flow where the system should surface, explain, and then *wait* — not act.
+
+## Workflow Shape
+
+```
+Signal → Triage Summary → Explanation → Approval Checkpoint → Execute or Route
+```
+
+## Primary Patterns
+
+1. **Proactive Signal** — system-initiated detection and surfacing
+2. **Evidence-Backed Answer** — explanation with traceable rationale
+3. **Approval Checkpoint** — explicit human authorization gate
+4. **Audit / History View** — record of what was shown, approved, and executed
+
+## Inputs Required
+
+- Monitored entity, workflow, or threshold
+- Signal logic and triggering criteria
+- Supporting evidence bundle
+- Reviewer identity and authorization scope
+- Reversibility status of the proposed action
+
+## Outputs
+
+- Signal with explanation
+- Approval or rejection, with reviewer identity
+- Action executed or routed, with audit record
+
+## Autonomy Level
+
+**Level 4 — Execute with Approval.** The system detects, explains, and prepares — but takes no action until the human explicitly authorizes. The pause point is mandatory.
+
+## Trust Requirements
+
+- Signal must be explainable — user should know what triggered it
+- Evidence must be sufficient for informed approval — not just a summary
+- Approval must be genuinely consequential — not a formality
+- Audit record must capture what was shown, what was approved, and what ran
+- Workflow must preserve state through rejection and re-submission
+
+## Example Scenario
+
+A KYC review system detects a profile needing attention. The system surfaces the signal, summarizes the triggering evidence (recent transactions, document expiry, unresolved flags), and queues the case for supervisor sign-off. The supervisor approves or requests investigation. The action does not proceed until authorization is given.
+
+## Modality and Surface Variants
+
+- **Notification + sidebar** — signal delivered as notification, expanded in sidebar for review
+- **Workspace** — full case detail before approval decision
+- **Email or async channel** — for batched approvals in lower-urgency flows
+
+## Failure Modes
+
+- Signal is noisy or confidence is misread as certainty — reviewer approves without real understanding
+- Approval step lacks sufficient evidence for informed judgment
+- Workflow resumes without durable state after rejection or edit
+- Multiple reviewers approve the same item in parallel — ownership unclear
+
+## Related Recipes
+
+- Ask → Evidence → Action
+- Agent Plan → Checkpoint → Execute

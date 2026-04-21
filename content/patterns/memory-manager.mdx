@@ -1,0 +1,96 @@
+---
+title: "Memory Manager"
+summary: "Exposes, scopes, and lets users inspect or influence the historical context, preferences, and retained facts the system uses to personalize or ground future behavior."
+patternFamily: "recovery-continuity"
+jobs: ["remember", "understand"]
+modalities: ["text"]
+surfaces: ["sidebar", "workspace"]
+trustLevel: 3
+autonomyLevel: 1
+enterpriseRisk: "medium"
+status: "emerging"
+relatedPatterns: ["contextual-assistant", "recommendation-list", "audit-history-view"]
+relatedRecipes: []
+---
+
+## Definition
+
+Memory Manager is the pattern that exposes, scopes, and lets users inspect or influence the historical context, preferences, retained facts, and interaction memory the system uses to personalize or ground future behavior.
+
+## Why It Matters
+
+Enterprise AI becomes more useful as it remembers relevant context across time. It also becomes riskier if that memory is invisible, overreaching, or difficult to correct. Users must have meaningful control over what the system carries forward — not just a settings page, but a legible, governable memory surface.
+
+## When to Use
+
+- The system retains user- or workflow-level memory across sessions
+- Recommendations or drafting are influenced by prior interactions
+- Personalization, saved preferences, or retained facts affect outcomes
+- Users need to review, edit, reset, or constrain what is remembered
+
+## When Not to Use
+
+- No persistent memory is involved
+- The context is only temporary session state
+- The pattern is being used as a hidden implementation detail with no user-facing consequence
+
+## Inputs and Minimum Context
+
+The pattern needs: stored memory items or inferred preferences, source of memory, scope of storage, reach of use, retention rules, and permission boundaries.
+
+## Core Interaction Anatomy
+
+- **Trigger:** User opens memory settings, explanation view, or contextual memory panel
+- **Output:** List or grouped view of what the system remembers and why it matters
+- **Controls:** Inspect, edit, remove, mute, reset, or limit scope
+
+## Pattern States
+
+| State | Description |
+|---|---|
+| **No retained memory** | System has no stored context |
+| **Active memory list** | Retained items shown |
+| **Memory item expanded** | Detail and source visible |
+| **Memory item removed** | Item deleted; change confirmed |
+| **Reset in progress** | Full clear initiated |
+| **Policy-limited** | Some memory governed by org policy |
+| **Historical changes** | Audit of memory changes available |
+
+## Trust and Governance Requirements
+
+The pattern must make clear:
+- What is remembered
+- What is inferred versus explicitly saved
+- Whether memory is personal, team-level, or global
+- Whether it can be deleted or reset
+
+## Surface and Modality Variants
+
+- **Sidebar** — contextual memory view tied to current workflow
+- **Workspace or settings** — full memory management
+- **Inline explanation** — small disclosures near personalized content
+- **Voice** — summarize and hand off to visual controls
+
+## Enterprise Example
+
+A work assistant explains that it prioritizes project updates from three teams because the user repeatedly follows those programs, and lets the user remove one team from future prioritization.
+
+## Anti-Patterns
+
+- Invisible memory shaping behavior silently
+- No distinction between saved fact and inferred preference
+- No deletion or reset path
+- Showing memory as magic instead of governed context
+
+## Failure Modes
+
+- Users feel surveilled
+- Stale memories distort recommendations
+- Personalization becomes hard to correct
+- Compliance teams reject memory-enabled features due to weak controls
+
+## Private Banking Translation
+
+An advisor can inspect that the system remembers household preferences, recurring meeting structure, preferred outreach tone, recent commitments, and saved watchlist criteria — and can remove or limit any of them.
+
+Memory Manager is essential for private banking because advisor effectiveness depends on continuity across meetings, calls, and service interactions. Key memory categories include: prior commitments and follow-ups, meeting prep preferences, outreach tone and personalization patterns, and client-specific context (notable dates, family structure, interests). All memory must be inspectable, editable, and deletable. Compliance teams need assurance that memory does not retain information beyond its authorized retention window or share context across relationship boundaries where it should not.

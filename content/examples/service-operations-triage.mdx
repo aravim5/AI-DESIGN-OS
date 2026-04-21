@@ -1,0 +1,89 @@
+---
+title: "Service Operations Triage Assistant"
+summary: "An operations AI that helps service managers detect which cases are at risk, understand why, and route resolution work — combining proactive signals, guided workflows, and approval checkpoints."
+industry: "Enterprise Service Operations"
+patterns: ["proactive-signal", "evidence-backed-answer", "guided-flow", "approval-checkpoint", "long-running-task-tracker"]
+jobs: ["monitor", "understand", "execute", "recover"]
+surfaces: ["feed-stream", "sidebar", "workspace", "notification"]
+---
+
+## What This Example Shows
+
+This example illustrates how to compose **Proactive Signal**, **Evidence-Backed Answer**, **Guided Flow**, **Approval Checkpoint**, and **Long-Running Task Tracker** into a coherent service operations experience.
+
+The scenario: a service operations manager oversees a team handling enterprise support cases. The AI monitors the case queue, surfaces breach risks before they happen, guides resolution routing, and pauses for approval before any consequential external communication.
+
+## Framework Analysis
+
+| Layer | Decision |
+|---|---|
+| **Job** | Monitor + Understand + Execute + Recover |
+| **Pattern Family** | Proactive Intelligence + Retrieval + Orchestration + Governance and Control |
+| **Modality** | Feed / stream (primary) + Text + Data visualization for SLA tracking |
+| **Surface** | Feed (monitoring) + Notification (urgency) + Sidebar (triage) + Workspace (resolution) |
+| **Autonomy** | Level 4 — Guide (through resolution steps); Level 5 — Execute with approval (for external comms) |
+| **Trust** | Rationale for every signal; approval before external action; full audit trail |
+| **Context** | Case queue state, customer tier, SLA windows, assignee availability, case history, prior resolutions |
+
+## What the System Does
+
+**Morning monitoring (Feed + Notification):**
+1. Proactive Signal surfaces the top 5 cases likely to breach SLA in the next 24 hours, with severity and reasons
+2. Critical cases generate a notification if the manager is away from the feed
+3. Each signal includes: case age, customer tier, current assignee, and what factor is driving the risk
+
+**Triage and routing (Sidebar + Evidence-Backed Answer):**
+4. Manager selects a case; sidebar shows evidence: interaction history, prior resolution attempts, escalation history, product context
+5. System suggests routing: re-assign to specialist, escalate to senior, request more information, or resolve
+6. Each suggestion is backed by rationale: "Specialist team A resolved 4 similar cases last week"
+
+**Guided resolution (Workspace + Guided Flow):**
+7. If escalation is chosen, system launches a guided flow: collect context summary, identify stakeholders, draft escalation message, get approval
+8. Flow shows step count, allows skipping non-mandatory steps, preserves state if the manager leaves
+
+**Approval checkpoint (Workspace):**
+9. Before any external customer-facing communication is sent, system pauses at Approval Checkpoint
+10. Manager sees: the draft message, evidence used to compose it, affected case and customer, and approval controls
+11. Approved message is logged to the case with full context
+
+**Background tracking (Long-Running Task Tracker):**
+12. Multi-step cases are tracked across handoffs: document requests, specialist reviews, third-party confirmations
+13. Manager sees status, blockers, and next-due actions across their full escalation queue
+
+## Design Decisions
+
+**Why does this example use four surfaces?**  
+Service operations work naturally spans multiple cognitive modes: scanning (feed), investigating (sidebar), resolving (workspace), and emergency attention (notification). Collapsing all four into one assistant panel would produce an unusable experience.
+
+**Why Level 4–5 autonomy rather than 2–3?**  
+This is not a knowledge-work tool — it is an operations tool. The manager needs to move quickly through resolution workflows, not just receive recommendations. The system must be able to guide them through multi-step processes (Level 4) and execute external communication after explicit approval (Level 5).
+
+**Why Approval Checkpoint only for external communication?**  
+Internal routing, re-assignment, and case notes do not require the same control overhead as customer-facing messages. Applying the same checkpoint to every action creates friction theater rather than real oversight.
+
+**Why track long-running cases explicitly?**  
+Many enterprise service cases cross multiple sessions and multiple actors. Without explicit tracking, partial resolution leaves customers waiting without visibility. The tracker turns invisible background work into a managed queue.
+
+## Trust Requirements
+
+- All SLA breach predictions must show the factors that drive the signal — not just a risk score
+- External communications require explicit approval before sending — never auto-send
+- The audit trail must include: what the AI drafted, what the manager changed, who approved, and when sent
+- Case routing suggestions must show their basis (similar cases resolved, specialist availability, policy rule)
+- The tracker must show what is waiting on whom, with timestamps
+
+## Common Failure Modes
+
+- **Signal noise** — too many cases flagged as "at risk"; manager stops paying attention
+- **Routing without rationale** — system suggests escalation but manager doesn't know why
+- **Approval as rubber stamp** — approval checkpoint shows a message but not the basis; manager clicks through without reading
+- **Invisible long-running work** — multi-step cases disappear from view after handoff; manager loses track
+- **No recovery design** — system guides through a workflow but there's no path when a step fails or is blocked
+
+## What Success Looks Like
+
+- Manager opens the morning feed and in 10 minutes identifies which 3 cases need intervention today
+- Each triage decision takes 2–3 minutes because the evidence is pre-assembled, not buried in the case record
+- External escalation messages go out with full context and are logged automatically
+- No SLA breaches occur on cases where the signal was surfaced; the proactive system is credited for preventing them
+- After a quarterly review, the signal thresholds are tuned based on which signals were actionable vs. noise

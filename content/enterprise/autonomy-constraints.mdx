@@ -1,0 +1,121 @@
+---
+title: "Autonomy and Agentic Constraints"
+summary: "How to design enterprise AI systems that act autonomously without losing accountability, safety, or user control."
+order: 2
+---
+
+## The Agentic Challenge
+
+Agentic AI systems — systems that plan, use tools, and take actions across multiple steps — introduce a new class of design and governance challenge. Unlike single-turn question-answering, agentic systems:
+
+- Take actions that change system state
+- May run for extended periods without direct user supervision
+- Can involve multiple tools, APIs, or downstream systems
+- May make decisions the user never explicitly authorized
+
+The result: **higher capability, higher risk, and a greater need for explicit design.**
+
+## Least-Privilege Design
+
+The principle of least privilege, familiar from security engineering, applies directly to agentic AI:
+
+> **Give the system only the permissions it needs for the current task — no more.**
+
+Concretely, this means:
+- Tool permissions should be scoped to the current workflow, not granted globally
+- The system should not be able to access data it does not need
+- Actions that affect external systems should require explicit authorization
+- Permissions should be revocable without disrupting the broader system
+
+## The Preparation–Execution Boundary
+
+The most important design boundary in any agentic system is the line between **preparing work** and **committing to it**.
+
+Preparation includes: drafting, prefilling, ranking, planning, simulating.
+
+Execution includes: sending, submitting, modifying records, triggering workflows, making API calls.
+
+Design rule: **execution should never happen without a visible, explicit step.** Users must always know when they are crossing this boundary.
+
+## Approval Patterns for Agentic Work
+
+Not every action needs a full approval checkpoint. But some categories almost always do:
+
+| Action category | Approval requirement |
+|---|---|
+| External communication | Almost always |
+| Financial transactions | Always |
+| Record modifications | Context-dependent |
+| Workflow triggers | Context-dependent |
+| Internal reads and summaries | Usually not required |
+
+## Monitoring and Interruption
+
+Long-running agentic workflows must be designed with interruption in mind:
+
+- The user should be able to pause the workflow at any point
+- The system should surface blocking conditions proactively, not silently fail
+- If the system encounters a situation outside its authorized scope, it should stop and escalate — not improvise
+
+## Recovering from Agentic Failure
+
+When an agentic workflow fails or produces an error, recovery must be explicit:
+
+- The user should know exactly what steps ran successfully and what failed
+- Partial execution should not leave the system in an inconsistent state
+- Rollback or compensation steps should be documented and available where possible
+- The audit log must capture the full execution sequence, including failures
+
+## The Minimal Footprint Principle
+
+When designing agentic systems, prefer the smallest scope that achieves the objective:
+
+> **Do not request more permissions, run more steps, or involve more systems than the task requires.**
+
+This reduces error surface, improves auditability, and keeps users in meaningful control.
+
+## Autonomy Scale Reference
+
+| Level | Name | What the system does | Minimum oversight |
+|---|---|---|---|
+| 1 | Inform | Answer and explain | Source attribution |
+| 2 | Recommend | Suggest options with rationale | Rationale visibility, dismissal path |
+| 3 | Prepare | Draft, prefill, or assemble | Editability, AI presence marked |
+| 4 | Guide | Lead through bounded steps | Step visibility, pause/resume controls |
+| 5 | Execute with approval | Act after explicit sign-off | Approval checkpoint, full logging |
+| 6 | Execute within policy | Act autonomously within defined bounds | Permission scope, continuous monitoring |
+
+## Private Banking Autonomy Boundaries
+
+In private banking, the difference between preparing and acting carries supervisory and customer-impact consequences. A strong design in this domain rarely jumps directly from recommendation to unreviewed action.
+
+Typical mapping:
+- **Inform (Level 1):** Relationship summary, portfolio change explanation, service status
+- **Recommend (Level 2):** Which households deserve attention today; next-best-action priorities
+- **Prepare (Level 3):** Meeting briefs, follow-up drafts, CRM note prefill
+- **Guide (Level 4):** Advisor through a service or review flow with step-by-step confirmation
+- **Execute with approval (Level 5):** Staged workflow submission, client-facing communication after supervisor review
+- **Execute within policy (Level 6):** Narrowly bounded internal tasks only — such as opening a low-risk follow-up item
+
+**Design rule:** In regulated banking contexts, AI systems should generally operate at Levels 1–4 by default. Levels 5–6 require explicit organizational authorization, risk assessment, and ongoing supervisory monitoring.
+
+## Failure Modes
+
+- **Autonomy ambiguity:** users cannot tell whether the system is informing, recommending, preparing, or acting
+- **Agent inflation:** any tool-using flow is described as autonomous even when it still depends heavily on the user
+- **Action without adequate approval:** sensitive actions occur without enough review or control
+- **High power with weak boundaries:** the agent has overly broad permissions, poor least-privilege scope, or no clear human controller
+- **Implicit escalation:** the system gains more autonomy over time without users or organizations explicitly deciding to grant it
+- **Inconsistent preparation-execution boundary:** users cannot reliably tell when they have crossed from reviewing to committing
+
+## References
+
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- Google Cloud — What is agentic AI? — https://cloud.google.com/discover/what-is-agentic-ai
+- OpenAI — Operator system card — https://openai.com/index/operator-system-card/
+- OpenAI — A practical guide to building agents — https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+- Microsoft Copilot Studio — Responsible AI maturity model — https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/maturity-model-responsible-ai
+- Microsoft Security — Manage agentic risk — https://learn.microsoft.com/th-th/security/zero-trust/sfi/manage-agentic-risk
+- Anthropic — Responsible Scaling Policy — https://www.anthropic.com/news/responsible-scaling-policy-v3
+- Anthropic — Trustworthy Agents — https://www.anthropic.com/research/trustworthy-agents
+- Anthropic — Building Effective Agents — https://www.anthropic.com/research/building-effective-agents

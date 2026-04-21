@@ -1,0 +1,129 @@
+---
+title: "The Surface Model"
+layer: "surfaces"
+summary: "The Surface Model defines the interface context in which AI becomes visible, interactive, or actionable. It answers: Where should this intelligence show up?"
+order: 4
+---
+
+## A. Definition
+
+The Surface Model defines the spatial, structural, and behavioral container in which AI interaction appears relative to the user's current task. It answers the question: **Where should this intelligence show up?**
+
+A surface governs proximity, prominence, interruption, and persistence. It determines whether intelligence appears inline with the work, adjacent to it, above it, instead of it, in the background, or in a spatial environment.
+
+## B. Why It Matters
+
+Enterprise AI breaks when useful intelligence appears in the wrong place. A rich explanation can be ignored if buried too deeply. A low-priority signal can become distracting if rendered as a blocking interruption.
+
+Surface choice matters because the same AI output behaves very differently depending on whether it is shown inline, in a drawer, in a notification, or in a full workspace.
+
+Enterprise AI is inherently **multi-surface**. Work unfolds across records, lists, workflows, monitoring states, alerts, approvals, and coordinated tasks. A single-surface copilot is too narrow. Recent research on browser agents confirms that mixed-surface strategies outperform single-panel approaches.
+
+## C. What Belongs Here
+
+- **Inline** — embedded within the user's current screen or content
+- **Overlay** — temporary layer above the current interface
+- **Sidebar / Drawer** — persistent adjacent panel coexisting with the main area
+- **Workspace / Window** — dedicated environment for broader, more complex jobs
+- **Feed / Stream** — continuously updated stream of signals or priorities
+- **Notification** — discrete event-driven alert outside the main workflow
+- **Background / Ambient layer** — intelligence operating without demanding foreground interaction
+- **Spatial environment** — AI across windows, volumes, and immersive spaces
+
+Container relationships that define how AI enters ongoing work belong here.
+
+## D. What Does Not Belong Here
+
+- Jobs such as ask, understand, or execute
+- Interaction logic such as recommendation or orchestration
+- Modalities such as chart, text, or voice
+- Specific components such as cards, chips, tabs, or tables
+
+## E. Surface Taxonomy
+
+**Inline** — best for lightweight assistance, contextual cues, micro-explanations, suggested values, short next-best actions, and row- or field-level signals. Keeps intelligence close to the work but offers limited room for depth.
+
+**Overlay** — best for focused short interactions, transient comparisons, quick explanations, and progressive disclosure. Creates focus without fully moving the user out of context.
+
+**Sidebar** — best for deeper explanation, contextual exploration, draft generation, evidence review, and guided multi-step assistance. Balances continuity and depth — but becomes a dumping ground when every AI feature gets routed into one panel.
+
+**Workspace** — best for orchestration, planning, review preparation, multi-entity comparison, approval flows, and complex decision support. Supports sustained work, evidence, and action in one place. Use only when the job justifies the move.
+
+**Feed / Stream** — best for monitoring, triage, prioritization, and daily work discovery. Excellent for breadth and ranking — decays quickly into noise without strong semantics.
+
+**Notification** — best for urgency, escalation, deadlines, or state changes requiring timely attention. Powerful for timely intervention; fastest path to alert fatigue when overused.
+
+**Background / Ambient layer** — best for anomaly detection, precomputation, prioritization, ranking, cross-system synthesis, and proactive readiness. Creates value before the user explicitly asks.
+
+**Spatial environment** — best for immersive analysis, collaborative review, and multi-entity comparison. Apple's visionOS guidance treats windows, volumes, and immersive spaces as distinct scene types — not a single giant panel.
+
+## F. Design Principles
+
+1. **Use the smallest surface that can responsibly support the job.** Surface should expand only when users genuinely need more explanation, more action, or more orchestration.
+2. **Keep intelligence close to the work whenever possible.** Intelligence should first appear as close to context as possible before forcing movement to a separate destination.
+3. **Match interruption level to urgency, importance, and reversibility.** High-interruption surfaces should be reserved for events that are time-sensitive, easy to miss, or costly to defer.
+4. **Design surface progressions, not isolated moments.** Strong enterprise AI systems guide the user from signal to understanding to action.
+5. **Separate glanceability from depth.** Scan-friendly signals should not be forced into heavy containers, and rich investigation should not be forced into tiny ones.
+6. **Preserve continuity across surfaces.** When users move between surfaces, the system should preserve entity, filters, evidence, draft state, rationale, and pending next steps.
+7. **Let persistent surfaces carry memory.** Sidebars and workspaces are especially valuable because they can retain conversational, evidentiary, and action state across multiple steps.
+8. **Use ambient behavior as a substrate, not a gimmick.** A large share of enterprise AI value should be generated before the user explicitly asks.
+9. **Treat notifications as a scarce resource.** They should be reserved for meaningful attention shifts.
+10. **Treat spatial surfaces as environments, not oversized panels.** In spatial computing, the design task is composition of an environment, not placement of another rectangle.
+
+## G. Enterprise Examples
+
+**Explain a flagged client:**
+- Inline = short badge plus one-line rationale
+- Overlay = quick explanation tray
+- Sidebar = evidence, history, and related recommendations
+- Workspace = full case review with action paths
+
+**Recommend a next-best action:**
+- Inline = single suggestion near the record
+- Feed = ranked list across a book
+- Sidebar = rationale, confidence, and alternatives
+- Notification = only when timing is critical
+
+**Draft an outreach message:**
+- Inline = sentence suggestion or subject line
+- Sidebar = editable draft with supporting context
+- Workspace = full communication preparation flow
+
+**Monitor service risk:**
+- Ambient = continuous background monitoring
+- Feed = daily triage of at-risk items
+- Notification = escalation when breach risk becomes immediate
+- Workspace = remediation planning and follow-through
+
+## H. Private Banking Translation
+
+Private banking work spans multiple scopes at once: book, household, client, prospect, account, request, case, meeting, review, and supervisory flow. Because the operating model is layered, AI must also be layered in how it appears.
+
+- **Inline:** Row-level client signals, account-level flags, meeting-agenda suggestions, form completion guidance in onboarding
+- **Overlay:** Short "why is this client prioritized today?" explanations; temporary compare views for products or alternatives
+- **Sidebar:** Advisor copilots beside client profile, account, or list views; drafting outreach, reviewing evidence, understanding recent activity
+- **Workspace:** Periodic review preparation; meeting prep across holdings, interactions, opportunities, and service issues; portfolio review and approval flows
+- **Feed:** Clients to contact today; households with excess cash and no recent outreach; relationships showing declining momentum; prospects with new engagement
+- **Notification:** Review due in 48 hours; high-priority client replied; approval needed before market close; service case likely to breach SLA
+- **Ambient layer:** Book-level monitoring and relationship-health detection; opportunity ranking; cross-channel synthesis of service, engagement, and portfolio signals
+- **Spatial:** Collaborative planning rooms; immersive relationship or portfolio review; multi-entity scenario exploration
+
+## I. Failure Modes
+
+- **Sidebar inflation:** every AI capability gets routed into one assistant panel
+- **Inline overload:** interfaces become cluttered with too many small cues and suggestions
+- **Notification abuse:** low-value intelligence is escalated into interruptions
+- **Workspace inflation:** teams create full destinations for tasks that do not deserve them
+- **No progression path:** the system surfaces insights but offers no smooth move into explanation or action
+- **Surface duplication:** the same signal appears inline, in the sidebar, in the feed, and in notifications without clear role separation
+- **Ambient opacity:** background intelligence influences outcomes, but users cannot understand why
+- **Spatial novelty without operational value:** teams design for spectacle rather than workflow
+
+## References
+
+- Nielsen Norman Group — Progressive Disclosure — https://www.nngroup.com/articles/progressive-disclosure/
+- Microsoft Learn — Notifications design basics — https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/
+- Fluent 2 — Drawer guidance — https://fluent2.microsoft.design/components/web/react/core/drawer/usage
+- Fluent 2 — Dialog guidance — https://fluent2.microsoft.design/components/web/react/core/dialog/usage
+- Apple Human Interface Guidelines — Designing for visionOS — https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos
+- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
