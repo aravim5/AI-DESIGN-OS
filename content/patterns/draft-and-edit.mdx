@@ -17,9 +17,11 @@ relatedRecipes: ["draft-review-send"]
 
 Draft and Edit is a creation pattern in which the system produces an initial artifact that the user is expected to review, revise, and finalize.
 
+The core idea is compression of first-draft effort without loss of human authorship. The system helps produce a workable starting point, but the artifact is still provisional until a person has reviewed it.
+
 ## Why It Matters
 
-This is one of the most valuable enterprise AI patterns because it compresses first-draft effort without removing human judgment. It is fundamentally different from auto-execution: the output is provisional, editable, and intended to accelerate thinking or production.
+This is one of the most valuable enterprise AI patterns because it reduces blank-page cost without pretending that judgment has disappeared. It is fundamentally different from auto-execution: the output is provisional, editable, and intended to accelerate thinking or production.
 
 ## When to Use
 
@@ -35,16 +37,42 @@ This is one of the most valuable enterprise AI patterns because it compresses fi
 - The user needs side-by-side evaluation of options before creating content
 - Compliance rules require pre-approved language only
 
+## Selection Boundary
+
+Use **Inline Suggestion** for local edits inside an existing artifact.
+
+Use **Draft and Edit** when the user needs a meaningful first version of the artifact.
+
+Use **Approval Checkpoint** when that artifact is ready to cross into external or consequential action.
+
 ## Inputs and Minimum Context
 
-The pattern needs: prompt or intent, source context, tone or format constraints, user role, policy boundaries, and required facts or references.
+The pattern needs:
+
+- prompt or intent
+- source context
+- tone or format constraints
+- user role
+- policy boundaries
+- required facts or references
 
 ## Core Interaction Anatomy
 
 - **Trigger:** Explicit request to generate or rewrite
 - **Output:** Editable draft
 - **Controls:** Edit, regenerate, shorten, personalize, cite evidence, compare versions, or approve for next step
-- **Support:** Show source inputs or notes used to draft
+- **Support:** Show source inputs, notes, or records used to draft
+- **Boundary cue:** Make it clear that generation is complete but authorship and responsibility are still active
+
+## Strong Implementation Markers
+
+A strong Draft and Edit experience:
+
+- makes the draft visibly provisional rather than final
+- preserves user edits when regeneration happens
+- exposes source material when factual accuracy matters
+- distinguishes style edits from factual revisions
+- provides a clean handoff into approval when the artifact becomes consequential
 
 ## Pattern States
 
@@ -61,34 +89,46 @@ The pattern needs: prompt or intent, source context, tone or format constraints,
 
 ## Trust and Governance Requirements
 
-The draft must be visually and behaviorally understood as AI-generated. Users should be able to inspect or re-open the source material. High-risk content — outbound communications, regulatory filings, client-facing materials — should require explicit review before sending or committing.
+The draft must be visually and behaviorally understood as AI-generated. Users should be able to inspect or reopen the source material. High-risk content, especially outbound communications, regulatory filings, or client-facing materials, should require explicit review before sending or committing.
 
 ## Surface and Modality Variants
 
-- **Editor workspace** — full drafting environment
-- **Sidebar draft panel** — contextual generation adjacent to current view
-- **Inline rewrite** — small-scale revisions within an existing document
-- **Voice** — dictation plus generated summary
+- **Editor workspace** - full drafting environment
+- **Sidebar draft panel** - contextual generation adjacent to current view
+- **Inline rewrite** - small-scale revisions within an existing document
+- **Voice** - dictation plus generated summary or draft structure
 
 ## Enterprise Example
 
-A seller asks for a customer follow-up email after a product demo. The system drafts the message, highlights the recommended subject line, and lets the seller revise before sending.
+A seller asks for a customer follow-up email after a product demo.
+
+The system drafts the message, highlights the recommended subject line, cites the meeting notes it used, and lets the seller revise before sending. The seller can shorten the draft, personalize the opening, or compare a more formal versus more direct version.
+
+## Failure-Recovery Sequence
+
+1. The system generates a polished draft from incomplete notes.
+2. The user notices a factual gap.
+3. The UI lets the user inspect the source material, mark the unsupported sentence, and either revise manually or regenerate with stricter constraints.
+4. The system preserves the user edits and indicates what changed.
+5. If the artifact is still high-risk, the next step should be Approval Checkpoint rather than direct send.
 
 ## Anti-Patterns
 
-- Making the draft look final before it is reviewed
+- Making the draft look final before review
 - Hiding the fact that it was AI-generated
 - Removing editability after generation
 - Regenerating unpredictably and losing user changes
+- Treating stylistic polish as evidence of factual correctness
 
 ## Failure Modes
 
 - Inaccurate details get carried into final output
 - Users over-trust stylistically strong drafts
 - Teams use Draft and Edit where Evidence-Backed Answer was actually needed first
+- The design optimizes for generation speed and under-designs revision quality
 
 ## Private Banking Translation
 
-After a client review, the advisor generates a recap email summarizing portfolio topics, next steps, and agreed follow-ups — then edits tone and detail before sending.
+After a client review, the advisor generates a recap email summarizing portfolio topics, next steps, and agreed follow-ups, then edits tone and detail before sending.
 
-Draft and Edit is one of the highest-value patterns in private banking because relationship communications are time-intensive and highly personalized. It is appropriate for: post-meeting summaries, client follow-up emails, internal notes, event invitations, and referral introductions. It must never auto-send. Every draft should be clearly marked as AI-generated, fully editable, and require advisor approval before any outbound use. For compliance-sensitive content, route through Approval Checkpoint before sending.
+Draft and Edit is one of the highest-value patterns in private banking because relationship communications are time-intensive and highly personalized. It is appropriate for post-meeting summaries, client follow-up emails, internal notes, event invitations, and referral introductions. It should never auto-send. Every draft should be clearly marked as AI-generated, fully editable, and routed through Approval Checkpoint whenever the content becomes compliance-sensitive or client-facing.

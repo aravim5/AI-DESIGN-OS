@@ -1,6 +1,6 @@
 ---
 title: "Approval Checkpoint"
-summary: "A consequential system recommendation, draft, or action is held for explicit human review and authorization before it proceeds."
+summary: "A consequential recommendation, draft, or action is held for explicit human review and authorization before it proceeds."
 patternFamily: "governance-control"
 jobs: ["execute", "collaborate"]
 modalities: ["text"]
@@ -17,9 +17,13 @@ relatedRecipes: ["signal-explanation-approval", "agent-plan-checkpoint-execute",
 
 Approval Checkpoint is the pattern where a consequential system recommendation, draft, or action is held for explicit human review and authorization before it proceeds.
 
+The defining feature is not the presence of an approval button. It is that the system pauses at the correct boundary and makes the decision legible enough for responsible human authorization.
+
 ## Why It Matters
 
-Enterprise AI should not blur the line between suggestion and action. Some outcomes need explicit sign-off because of financial, legal, compliance, reputational, or workflow consequences. The checkpoint is the pattern that enforces that boundary.
+Enterprise AI should not blur the line between suggestion and action. Some outcomes need explicit sign-off because of financial, legal, compliance, reputational, or workflow consequences.
+
+Approval Checkpoint is the pattern that enforces that boundary. Without it, systems drift from "helping" into unreviewed influence or unowned action.
 
 ## When to Use
 
@@ -34,17 +38,44 @@ Enterprise AI should not blur the line between suggestion and action. Some outco
 - The outcome is low-risk and reversible
 - The step is purely informational
 - The review adds no real control and only creates friction theater
+- The design cannot yet explain what is being approved
+
+## Selection Boundary
+
+Use **Draft and Edit** when the user is still shaping the artifact.
+
+Use **Approval Checkpoint** when the artifact or action is ready to cross into consequence.
+
+Use **Audit / History View** after the decision has happened and needs to be reconstructed later.
 
 ## Inputs and Minimum Context
 
-The pattern needs: proposed action or decision, rationale and evidence, affected entities, policy constraints, reviewer identity and permission, and reversibility status.
+The pattern needs:
+
+- proposed action or decision
+- rationale and supporting evidence
+- affected entities
+- policy constraints
+- reviewer identity and permission
+- reversibility status
 
 ## Core Interaction Anatomy
 
-- **Trigger:** System reaches action threshold or user initiates review
-- **Output:** Concise summary of what will happen
-- **Support:** Show why, what data informed it, and what changes will occur
-- **Controls:** Approve, reject, edit, request changes, or escalate
+- **Trigger:** The system reaches an action threshold or the user explicitly submits for review.
+- **Action summary:** The UI states exactly what will happen if approved.
+- **Support:** Show why the system is proposing the action, what data informed it, and what will change downstream.
+- **Authority cue:** Show who is authorizing and under what role or permission scope.
+- **Controls:** Approve, reject, edit, request changes, or escalate.
+
+## Strong Implementation Markers
+
+A strong Approval Checkpoint:
+
+- states the exact action scope, not just the headline action
+- distinguishes what is editable from what requires resubmission
+- shows whether the action is reversible and on what terms
+- records who approved, when, and under what authority
+- avoids collapsing complex review into one blind click
 
 ## Pattern States
 
@@ -61,38 +92,60 @@ The pattern needs: proposed action or decision, rationale and evidence, affected
 ## Trust and Governance Requirements
 
 Approval Checkpoint must expose:
-- Exact action scope — what will happen
-- Who is authorizing and under what authority
-- What evidence supports the action
-- Whether the action is reversible
-- Where the action is logged
+
+- exact action scope
+- who is authorizing and under what authority
+- what evidence supports the action
+- whether the action is reversible
+- where the action is logged
+- what happens next if the reviewer rejects or edits it
 
 ## Surface and Modality Variants
 
-- **Modal or dialog** — for short, focused approvals
-- **Workflow step** — for multi-step flows with a dedicated review stage
-- **Queue or review center** — for batched approvals
-- **Sidebar** — for contextual approvals tied to current record
+- **Modal or dialog** - for short, focused approvals with limited scope
+- **Workflow step** - for multi-step flows with a dedicated review stage
+- **Queue or review center** - for batched approvals
+- **Sidebar** - for contextual approvals tied to the current record
 
 ## Enterprise Example
 
-A support AI proposes closing a high-priority case with an automated response. The system pauses at a checkpoint, shows the proposed message, the evidence behind closure, and asks the manager to approve or edit.
+A support AI proposes closing a high-priority case with an automated response.
+
+The checkpoint should show:
+
+- the exact response that will be sent
+- the evidence behind closure
+- the status change that will be triggered
+- who will be notified
+- whether the action can be reversed afterward
+
+The manager can approve, edit the message, reject closure, or escalate to another reviewer.
+
+## Failure-Recovery Sequence
+
+1. The system submits a proposed action for review.
+2. The reviewer spots missing evidence and rejects the action with a reason.
+3. The system preserves the original proposal, the rejection rationale, and the affected context.
+4. The workflow routes back to preparation or revision rather than forcing the user to restart from nothing.
+5. If resubmitted, the checkpoint should show what changed since the prior review.
 
 ## Anti-Patterns
 
-- Approval without evidence — reviewer cannot make an informed decision
+- Approval without evidence
 - Approval after the action already happened
 - One-click approval for complex decisions
 - Checkpoint spam on trivial actions
+- Treating approval as a compliance ritual rather than an actual decision moment
 
 ## Failure Modes
 
-- Reviewers approve without understanding — checkbox compliance rather than real oversight
+- Reviewers approve without understanding
 - Teams overuse approval and slow the workflow
 - Teams underuse approval and create control gaps
+- The design hides downstream consequences until after approval
 
 ## Private Banking Translation
 
-Before sending a client-facing follow-up drafted by AI, the advisor or supervisory reviewer sees the message, cited account facts, suitability warnings, and approval controls — then explicitly approves or edits before sending.
+Before sending a client-facing follow-up drafted by AI, the advisor or supervisory reviewer sees the message, cited account facts, suitability warnings, and approval controls, then explicitly approves or edits before sending.
 
-Approval Checkpoint is the most important governance pattern in private banking AI. It must appear whenever: client-facing content is about to be sent; a recommendation moves from advisory context to formal action; a workflow step updates a regulated record; or a step crosses a threshold requiring supervisory review. The checkpoint must show what will happen, what data was used, what cannot be changed without restarting the process, and who is authorizing. Approval should be logged as part of the audit trail.
+Approval Checkpoint is one of the most important governance patterns in private banking AI. It should appear whenever client-facing content is about to be sent, a recommendation moves from advisory context to formal action, a workflow step updates a regulated record, or a process crosses a threshold requiring supervisory review. The checkpoint must show what will happen, what data was used, what cannot be changed without resubmission, and who is authorizing. Approval should be logged as part of the audit trail.

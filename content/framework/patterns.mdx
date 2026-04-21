@@ -1,7 +1,7 @@
 ---
 title: "The Pattern Family Model"
 layer: "patterns"
-summary: "Pattern families define the recurring interaction structures through which an AI system supports a class of user jobs. They answer the question: What kind of AI interaction is happening here?"
+summary: "Pattern families define the recurring interaction structures through which an AI system supports a class of user jobs. They answer: What kind of AI interaction is happening here, and which family should we choose?"
 order: 2
 ---
 
@@ -15,7 +15,9 @@ Pattern families sit between work intent and interface implementation. They prov
 
 Enterprise AI breaks when teams jump directly from jobs to features or components. The result is a grab bag of summary cards, prompts, alerts, and buttons that do not form a coherent system.
 
-Pattern families provide a middle layer of design logic. They help teams distinguish retrieval from synthesis, synthesis from recommendation, recommendation from execution, and execution from recovery.
+Pattern families provide the middle layer of design logic. They help teams distinguish retrieval from synthesis, synthesis from recommendation, recommendation from execution, and execution from recovery.
+
+Without that layer, teams end up debating components too early and overusing one generic shape, usually chat or a sidebar assistant, for fundamentally different kinds of work.
 
 ## C. What Belongs Here
 
@@ -39,35 +41,81 @@ Interaction logic that can travel across multiple products, surfaces, and modali
 - Jobs such as ask, decide, or execute
 - Isolated components such as cards, chips, prompts, tabs, or drawers
 
-## The Seven Pattern Families
+## E. The Seven Pattern Families
 
-| Family | What it covers |
-|---|---|
-| **Answer** | Quick retrieval and direct response patterns |
-| **Recommendation** | Ranked options, priorities, and suggested actions |
-| **Creation** | Drafting, generation, and content production |
-| **Workflow assistance** | Guided flows, form fill, and contextual help |
-| **Monitoring and signal** | Proactive detection and tracking patterns |
-| **Governance and control** | Approval, review, audit, and accountability |
-| **Recovery and continuity** | Error handling, memory, and resumption |
+| Family | Core question | Concrete patterns in this library |
+|---|---|---|
+| **Answer** | What is true, what happened, or what should I understand first? | Quick Answer, Evidence-Backed Answer |
+| **Recommendation** | What should I focus on, compare, or choose next? | Recommendation List, Inline Suggestion, Comparison Workspace |
+| **Creation** | What artifact should this system help me produce? | Draft and Edit |
+| **Workflow assistance** | How do I move this work forward step by step? | Guided Flow, Assisted Form Fill, Contextual Assistant |
+| **Monitoring and signal** | What needs attention over time? | Proactive Signal, Long-Running Task Tracker |
+| **Governance and control** | What needs explicit review, approval, or traceability? | Approval Checkpoint, Audit / History View |
+| **Recovery and continuity** | What happens when the system is uncertain, interrupted, or memory-bearing? | Low-Confidence Recovery, Memory Manager |
 
-## E. Design Principles
+## F. What a Strong Pattern Library Does
+
+A strong pattern library is not just a taxonomy. It should do five things:
+
+- reduce reinvention across products and teams
+- make interaction behavior more predictable for users
+- embed trust and control into repeatable structures
+- create a shared review vocabulary across design, product, and engineering
+- stay small enough that people can actually choose from it
+
+That last point matters. A weak library grows into a long list of vague entries. A strong library stays opinionated enough to be usable.
+
+## G. How to Choose the Right Family
+
+Start with the user's job, then ask five diagnostic questions:
+
+1. **Does the user primarily need orientation, prioritization, creation, workflow progression, monitoring, approval, or recovery?**
+2. **Is the system mainly informing, shaping judgment, preparing work, or acting?**
+3. **Is this a one-moment interaction or a multi-step workflow over time?**
+4. **How much consequence attaches to being wrong?**
+5. **Does the user need one pattern or a composition of several?**
+
+In practice, the fastest selection logic is:
+
+- choose **Answer** when the user first needs understanding
+- choose **Recommendation** when the user needs ranking, prioritization, or comparison
+- choose **Creation** when the user needs an artifact
+- choose **Workflow assistance** when the work unfolds through explicit stages
+- choose **Monitoring and signal** when value comes from watchfulness over time
+- choose **Governance and control** when the system is approaching consequence
+- choose **Recovery and continuity** when uncertainty, resumption, or memory become first-class concerns
+
+## H. One Worked Example
+
+Consider the question: **"Who should I contact today?"**
+
+That question is not "a chat use case." It can activate several pattern families:
+
+- **Recommendation** if the system is ranking households or accounts
+- **Answer** if the user asks why a particular client is being surfaced
+- **Recommendation plus analysis** if the user needs to compare several candidates
+- **Creation** if the next step is drafting outreach
+- **Governance and control** if that outreach crosses into a review or approval threshold
+
+This is the practical value of the model. It helps teams stop arguing about whether the feature should be a sidebar or a chatbot and start specifying what kind of interaction is actually happening.
+
+## I. Design Principles
 
 - **Design the interaction logic before the component.** Define the family first, then decide how it will be expressed in UI.
 - **Keep pattern families above features and below jobs.** They should describe repeatable interaction structures, not broad work intents or narrow controls.
 - **Separate passive understanding from active influence.** Summarization is not the same as recommendation, and recommendation is not the same as execution.
-- **Treat proactive and recovery patterns as core.** The system must watch, warn, and recover — not only answer on demand.
+- **Treat proactive and recovery patterns as core.** The system must watch, warn, and recover, not only answer on demand.
 - **Allow one workflow to use multiple families.** Real enterprise experiences are composite and rarely fit one interaction form only.
 
-## F. Enterprise Examples
+## J. Enterprise Examples
 
-- **Customer support:** Retrieval + synthesis + recovery for case escalation
-- **Procurement:** Recommendation + review + approval for vendor selection
-- **Marketing:** Generation + review controls for campaign drafts
-- **Finance:** Proactive intelligence + explanation for threshold breaches
-- **Engineering:** Orchestration + recovery for incident triage workflows
+- **Customer support:** Retrieval plus synthesis plus recovery for case escalation
+- **Procurement:** Recommendation plus review plus approval for vendor selection
+- **Marketing:** Generation plus review controls for campaign drafts
+- **Finance:** Proactive intelligence plus explanation for threshold breaches
+- **Engineering:** Orchestration plus recovery for incident triage workflows
 
-## G. Private Banking Translation
+## K. Private Banking Translation
 
 Private banking makes the Pattern Family Model especially legible because fact retrieval, relationship explanation, client prioritization, draft generation, service orchestration, and supervisory review are not interchangeable.
 
@@ -79,17 +127,18 @@ Private banking makes the Pattern Family Model especially legible because fact r
 
 This separation matters because a system that appears to "just help" may actually be retrieving regulated data, shaping judgment, and initiating workflow steps. Pattern-family clarity makes those distinctions designable and governable.
 
-## H. Failure Modes
+## L. Failure Modes
 
-- Components are mistaken for patterns — the team debates cards and panels before defining interaction logic.
+- Components are mistaken for patterns, so the team debates cards and panels before defining interaction logic.
+- The library grows into a grab bag of barely distinct entries that no one can choose between.
 - Everything is forced into chat, even when retrieval, comparison, monitoring, or drafting would be better expressed differently.
 - Recommendation and execution blur together, making it hard to tell when the system is influencing judgment versus changing system state.
 - Recovery is under-designed, so products demo well but break under real operational complexity.
 
-## I. References
+## M. References
 
-- Microsoft HAX Toolkit — Design Patterns — https://www.microsoft.com/en-us/haxtoolkit/design-patterns/
-- Microsoft Research — Guidelines for Human-AI Interaction — https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/
-- Google PAIR — People + AI Guidebook — https://pair.withgoogle.com/guidebook/
-- NIST — AI Risk Management Framework 1.0 — https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
-- IBM Carbon Design System — Patterns Overview — https://carbondesignsystem.com/patterns/overview/
+- Microsoft HAX Toolkit - Design Patterns - https://www.microsoft.com/en-us/haxtoolkit/design-patterns/
+- Microsoft Research - Guidelines for Human-AI Interaction - https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/
+- Google PAIR - People + AI Guidebook - https://pair.withgoogle.com/guidebook/
+- NIST - AI Risk Management Framework 1.0 - https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf
+- IBM Carbon Design System - Patterns Overview - https://carbondesignsystem.com/patterns/overview/

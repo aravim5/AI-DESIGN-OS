@@ -1,6 +1,6 @@
 ---
 title: "Evidence-Backed Answer"
-summary: "Pairs a direct answer with supporting rationale, source references, or traceable records needed for the user to verify or trust it."
+summary: "A direct answer paired with the supporting rationale, source references, and scope cues needed for the user to verify or challenge it."
 patternFamily: "answer"
 jobs: ["understand", "decide"]
 modalities: ["text", "data-visualization"]
@@ -15,84 +15,146 @@ relatedRecipes: ["ask-evidence-action", "signal-explanation-approval"]
 
 ## Definition
 
-Evidence-Backed Answer pairs a direct answer with the supporting rationale, source references, or traceable records needed for the user to verify or trust it.
+Evidence-Backed Answer gives the user a direct answer and the supporting rationale needed to inspect, trust, or challenge it. The defining characteristic is not that sources exist somewhere in the system. It is that the answer and its supporting proof are deliberately connected in the interaction.
 
 ## Why It Matters
 
-In enterprise contexts, a useful answer is often not enough. Users need to understand why the answer exists, what data informed it, and whether they can rely on it. Evidence-Backed Answer supports accountability, challenge, and decision-making in consequence-bearing workflows.
+In enterprise settings, a useful answer is often not enough. Users need to understand why the answer exists, what data informed it, what was inferred, and whether they should rely on it.
+
+This pattern matters whenever the user may need to defend the answer to someone else, act on it, or decide whether the system is reasoning from real evidence versus surface plausibility.
 
 ## When to Use
 
 - The answer affects a decision
 - The user is likely to ask "why?"
-- The output summarizes multiple signals
-- Auditability or accountability matters
-- The user must defend or explain the answer to others
+- The output summarizes multiple signals or records
+- Accountability or auditability matters
+- The user may need to challenge the result before acting
 
 ## When Not to Use
 
 - The user only needs fast orientation
 - The answer is trivial and low consequence
 - Source evidence is unavailable and cannot be summarized responsibly
+- The real task is ranking options rather than explaining one answer
+
+## Selection Boundary
+
+Use **Quick Answer** when speed matters more than justification.
+
+Use **Evidence-Backed Answer** when the user needs the answer plus the reasons behind it.
+
+Use **Recommendation List** when the user is choosing among multiple possible next steps or entities.
+
+Use **Approval Checkpoint** when the answer is about to cross into authorized action.
 
 ## Inputs and Minimum Context
 
-Minimum inputs: question, source data or cited records, ranking or reasoning logic, and permission context.
+Minimum inputs:
 
-Helpful context: thresholds, business rules, time windows, comparable items, and prior decisions.
+- the user question
+- the relevant source records or cited materials
+- the ranking or reasoning logic used to assemble the answer
+- permission context
+
+Helpful context:
+
+- thresholds or business rules
+- time windows
+- comparable items
+- prior decisions or prior recommendations
 
 ## Core Interaction Anatomy
 
-- **Trigger:** User asks for explanation or receives a consequential answer
-- **System output:** Answer first, evidence second
-- **Evidence block:** Sources, facts, reasoning factors, or policy basis
-- **Controls:** Expand evidence, inspect source, compare alternatives, challenge result, or save note
+- **Trigger:** The user asks a consequential "why" question or receives an answer that needs justification.
+- **Answer first:** The system gives the concise conclusion up front.
+- **Evidence second:** The user can immediately inspect the supporting facts, sources, or reasoning factors.
+- **Scope cues:** The system shows time horizon, entity scope, and whether the user is seeing a complete or role-limited view.
+- **Controls:** Expand evidence, inspect source, compare alternatives, challenge result, or save note.
+
+## Strong Implementation Markers
+
+A strong Evidence-Backed Answer does five things well:
+
+- separates verified facts from inferred interpretation
+- makes the supporting factors visible without forcing the user through multiple clicks
+- shows the scope of the answer, including time range and entity context
+- reveals evidence quality when freshness, completeness, or permissions are constrained
+- makes it easy to move from explanation into the next appropriate pattern, such as compare, draft, or approve
 
 ## Pattern States
 
 | State | Description |
 |---|---|
-| **Loading** | Retrieving sources and generating |
-| **Success** | Answer and evidence displayed |
-| **Low confidence** | Caveat visible; evidence quality disclosed |
-| **Blocked** | Permissions prevent full evidence display |
-| **Failure** | Cannot produce grounded answer |
-| **History** | Prior answers with evidence accessible |
+| **Loading** | Retrieving sources and assembling the answer |
+| **Success** | Answer and evidence are both available |
+| **Low confidence** | Caveat visible; evidence quality or completeness disclosed |
+| **Blocked** | Permissions or missing data prevent full evidence display |
+| **Failure** | Cannot produce a grounded answer safely |
+| **History** | Prior evidence-backed answers remain accessible |
 
 ## Trust and Governance Requirements
 
 The pattern should show:
-- What sources informed the answer
-- What reasoning factors mattered
-- Whether anything was inferred
-- Whether the user is seeing the full evidence set or a role-limited version
+
+- what sources informed the answer
+- what reasoning factors materially affected the result
+- whether anything was inferred rather than directly observed
+- whether the user is seeing the full evidence set or a role-limited version
+- whether freshness or missing data affects reliability
 
 ## Surface and Modality Variants
 
-- **Sidebar** — default layered form; answer visible, evidence expandable
-- **Workspace** — multi-source evidence review
-- **Inline** — compact why-reveal
-- **Voice** — summarize first, offer visual evidence as follow-up
+- **Sidebar** - default layered form; answer visible, evidence expandable
+- **Workspace** - better for multi-source or multi-record review
+- **Inline** - compact explanation reveal for local questions
+- **Voice** - summarize first, then offer the visual evidence view as follow-up
 
 ## Enterprise Example
 
-A revenue leader asks, *"Why is this account classified as churn risk?"* The system shows: declining usage trend, three unresolved support tickets, reduced executive engagement over 60 days, and a renewal date within 45 days.
+A revenue leader asks, *"Why is this account classified as churn risk?"*
+
+The system answers: *"This account is at elevated churn risk."* It then shows the support structure directly below:
+
+- usage down 32% over the last 60 days
+- three unresolved support tickets
+- executive sponsor inactive for 45 days
+- renewal date within 45 days
+
+The user can inspect the timeline, open the ticket history, and compare this account against similar accounts in the same segment.
+
+## Failure-Recovery Sequence
+
+1. The system produces a likely explanation, but one source feed is stale.
+2. The answer remains available, but the UI marks the evidence as partially complete rather than fully supported.
+3. The user can inspect which source is stale and when it was last refreshed.
+4. The system offers safer next steps: review current evidence, refresh source, or narrow scope.
+5. If the user needs to act anyway, the answer should step up into a more explicit review path rather than masquerade as complete.
 
 ## Anti-Patterns
 
 - Burying evidence behind several clicks
 - Presenting evidence as decoration instead of support
-- Listing sources without showing what matters
+- Listing sources without showing what matters in them
 - Mixing verified facts and inferred conclusions without distinction
+- Using a polished explanation to conceal weak or partial evidence
 
 ## Failure Modes
 
 - Users distrust a correct answer because the rationale is invisible
 - Users trust an incorrect answer because the interface looks polished
 - Teams overproduce evidence and create cognitive overload
+- The pattern silently degrades into a generic answer with citation garnish
 
 ## Private Banking Translation
 
-An advisor asks, *"Why is this client flagged for outreach?"* The system shows: cash buildup above threshold, no outbound contact in 28 days, a recent maturity event, and elevated product fit for a deposit solution.
+An advisor asks, *"Why is this client flagged for outreach?"*
 
-This pattern is especially critical in private banking because advisors regularly need to justify prioritization decisions to supervisors and to themselves. Evidence-Backed Answer is the correct baseline for any AI output that touches relationship health, opportunity signals, risk classification, or next-best-action logic. It supports suitability-adjacent reasoning and makes AI-influenced prioritization defendable.
+The system should not answer with a vague score. It should show the drivers:
+
+- cash buildup above threshold
+- no outbound contact in 28 days
+- recent maturity event
+- elevated fit for a deposit conversation
+
+This pattern is especially important in private banking because advisors often need to justify prioritization decisions to supervisors and to themselves. Evidence-Backed Answer is the right baseline for any AI output that touches relationship health, opportunity signals, risk classification, or next-best-action logic. It makes AI-influenced prioritization inspectable rather than mystical.

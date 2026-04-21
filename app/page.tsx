@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FRAMEWORK_LAYER_LABELS, FRAMEWORK_LAYER_SUMMARIES, FRAMEWORK_LAYERS } from "@/lib/taxonomy";
+import { getAllPatterns } from "@/lib/content";
+import { FRAMEWORK_LAYER_LABELS, FRAMEWORK_LAYER_SUMMARIES, FRAMEWORK_LAYERS, PATTERN_FAMILY_LABELS } from "@/lib/taxonomy";
 import type { FrameworkLayer } from "@/lib/types";
 
 const LAYER_ICONS: Record<FrameworkLayer, string> = {
@@ -11,15 +12,6 @@ const LAYER_ICONS: Record<FrameworkLayer, string> = {
   autonomy: "↝",
   context: "⊙",
 };
-
-const PATTERN_PREVIEWS = [
-  { title: "Quick Answer", family: "Answer", href: "/patterns/quick-answer" },
-  { title: "Evidence-Backed Answer", family: "Answer", href: "/patterns/evidence-backed-answer" },
-  { title: "Recommendation List", family: "Recommendation", href: "/patterns/recommendation-list" },
-  { title: "Draft and Edit", family: "Creation", href: "/patterns/draft-and-edit" },
-  { title: "Approval Checkpoint", family: "Governance", href: "/patterns/approval-checkpoint" },
-  { title: "Proactive Signal", family: "Monitoring", href: "/patterns/proactive-signal" },
-];
 
 const RECIPE_PREVIEWS = [
   {
@@ -39,7 +31,19 @@ const RECIPE_PREVIEWS = [
   },
 ];
 
+const FEATURED_PATTERN_IDS = [
+  "evidence-backed-answer",
+  "recommendation-list",
+  "draft-and-edit",
+  "approval-checkpoint",
+];
+
 export default function HomePage() {
+  const patterns = getAllPatterns();
+  const featuredPatterns = FEATURED_PATTERN_IDS.map((id) => patterns.find((pattern) => pattern.id === id)).filter(
+    (pattern): pattern is (typeof patterns)[number] => Boolean(pattern),
+  );
+
   return (
     <div>
       {/* Hero */}
@@ -209,18 +213,30 @@ export default function HomePage() {
               Pattern Library
             </p>
             <h2 style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.025em" }}>
-              15 reusable interaction patterns
+              4 featured patterns from a {patterns.length}-pattern library
             </h2>
           </div>
           <Link href="/patterns" style={{ fontSize: "0.8125rem", fontWeight: 500, color: "var(--color-accent)", textDecoration: "none" }}>
             View all →
           </Link>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem" }}>
-          {PATTERN_PREVIEWS.map((p) => (
+        <p
+          style={{
+            fontSize: "0.9375rem",
+            color: "var(--color-muted)",
+            lineHeight: 1.6,
+            maxWidth: "58ch",
+            marginTop: 0,
+            marginBottom: "1.5rem",
+          }}
+        >
+          A tighter homepage preview keeps the library scannable here. The full set of patterns lives on the main patterns page.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "0.875rem" }}>
+          {featuredPatterns.map((pattern) => (
             <Link
-              key={p.href}
-              href={p.href}
+              key={pattern.id}
+              href={`/patterns/${pattern.id}`}
               style={{
                 display: "block",
                 textDecoration: "none",
@@ -241,11 +257,22 @@ export default function HomePage() {
                   marginBottom: "0.375rem",
                 }}
               >
-                {p.family}
+                {PATTERN_FAMILY_LABELS[pattern.patternFamily]}
               </span>
               <span style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--color-foreground)", letterSpacing: "-0.01em" }}>
-                {p.title}
+                {pattern.title}
               </span>
+              <p
+                style={{
+                  fontSize: "0.8125rem",
+                  color: "var(--color-muted)",
+                  lineHeight: 1.55,
+                  marginTop: "0.5rem",
+                  marginBottom: 0,
+                }}
+              >
+                {pattern.summary}
+              </p>
             </Link>
           ))}
         </div>

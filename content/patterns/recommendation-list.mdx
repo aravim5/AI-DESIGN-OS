@@ -1,6 +1,6 @@
 ---
 title: "Recommendation List"
-summary: "A ranked or grouped set of suggested options, priorities, or next-best actions produced to help the user decide what to do next."
+summary: "A ranked or grouped set of suggested options, priorities, or next-best actions that helps the user decide where attention should go next."
 patternFamily: "recommendation"
 jobs: ["decide", "find", "monitor"]
 modalities: ["text", "data-visualization"]
@@ -17,9 +17,13 @@ relatedRecipes: ["find-shortlist-compare", "ask-evidence-action"]
 
 Recommendation List is a ranked or grouped set of suggested options, priorities, or next-best actions produced to help the user decide what to do next.
 
+The essence of the pattern is not the list itself. It is the prioritization logic. The system is shaping attention, not merely displaying results.
+
 ## Why It Matters
 
-Many enterprise tasks are prioritization problems, not information problems. Users need help deciding where attention should go first. Recommendation patterns create leverage by narrowing a large field into a smaller, more actionable set — but because recommendations shape user behavior, they need visible rationale, manageable confidence, and a clear line between suggestion and action.
+Many enterprise tasks are prioritization problems, not information problems. Users do not need more raw items. They need help deciding where attention should go first.
+
+Recommendation patterns create leverage by narrowing a large field into a smaller, more actionable set. Because they shape user behavior, they need visible rationale, manageable confidence, and a clear line between suggestion and action.
 
 ## When to Use
 
@@ -27,6 +31,7 @@ Many enterprise tasks are prioritization problems, not information problems. Use
 - Prioritization is more valuable than exhaustive browsing
 - The system can rank or group with defensible logic
 - The user remains the decision-maker
+- There is a realistic next step once an item is selected
 
 ## When Not to Use
 
@@ -34,66 +39,119 @@ Many enterprise tasks are prioritization problems, not information problems. Use
 - The ranking criteria are not explainable
 - The system cannot distinguish urgency from importance
 - Action should happen automatically without human choice
+- The dataset is so small that a ranked list adds no value
+
+## Selection Boundary
+
+Use **Evidence-Backed Answer** when the user wants to understand one item.
+
+Use **Recommendation List** when the user needs help deciding where to focus first.
+
+Use **Comparison Workspace** when the user needs to evaluate a short set of candidates side by side.
+
+Use **Proactive Signal** when the system should surface one timely item before the user asks.
 
 ## Inputs and Minimum Context
 
-Minimum inputs: candidate set, ranking criteria, time horizon, role and goals, and business constraints.
+Minimum inputs:
 
-Helpful context: workload, current priorities, recent activity, user preferences, and prior response to recommendations.
+- candidate set
+- ranking or grouping criteria
+- time horizon
+- role and goals
+- business constraints
+
+Helpful context:
+
+- workload
+- current priorities
+- recent activity
+- user preferences
+- prior response to recommendations
 
 ## Core Interaction Anatomy
 
 - **Trigger:** Explicit query or system-generated prioritization need
 - **System output:** Ranked or grouped list
-- **Rationale:** Top reasons per item
+- **Rationale:** Top reasons per item, not just a score
 - **Controls:** Re-rank, filter, compare, dismiss, act, or save
+- **Escalation path:** Move from the list into explanation, comparison, drafting, or review
+
+## Strong Implementation Markers
+
+A strong Recommendation List:
+
+- makes the ranking logic legible enough that users can spot bad recommendations
+- separates different kinds of recommendations instead of mixing everything into one stack
+- lets the user tune, dismiss, or refine the list without fighting the system
+- shows what changed when ranking moves materially from one session to the next
+- avoids pretending that one number captures the full nuance of prioritization
 
 ## Pattern States
 
 | State | Description |
 |---|---|
-| **Loading** | Generating ranked list |
+| **Loading** | Generating ranked or grouped list |
 | **Ranked success** | Full list shown with rationale |
-| **Low-confidence ranking** | Caveat on ordering quality |
+| **Low-confidence ranking** | Caveat on ordering quality or missing signals |
 | **Sparse results** | Few items match criteria |
-| **Blocked** | Insufficient data to rank |
+| **Blocked** | Insufficient data to rank responsibly |
 | **Dismissed / snoozed** | Item deprioritized by user |
 | **Historical** | Prior recommendation set accessible |
 
 ## Trust and Governance Requirements
 
 Users should know:
-- Why items are ranked
-- What time horizon or business objective the ranking reflects
-- Whether the list is personalized
-- Whether important data was unavailable
+
+- why items are ranked
+- what time horizon or business objective the ranking reflects
+- whether the list is personalized
+- whether important data was unavailable
+- whether the system is suggesting attention only or also preparing an action path
 
 ## Surface and Modality Variants
 
-- **Workspace or dashboard** — scanning a full list
-- **Sidebar** — contextual priority suggestions
-- **Notification or feed** — top one to three items for awareness
-- **Voice** — top-three summary
+- **Workspace or dashboard** - best for scanning a full list
+- **Sidebar** - contextual priority suggestions inside another workflow
+- **Notification or feed** - top one to three items for awareness
+- **Voice** - top-three summary, then handoff to a visual list if action or inspection is required
 
 ## Enterprise Example
 
-A manager opens a daily operations panel and sees the top five contracts likely to slip this month, each with a short explanation of the risk signal.
+A manager opens a daily operations panel and sees the top five contracts likely to slip this month. Each item includes:
+
+- a one-line explanation of the risk signal
+- the time horizon for the recommendation
+- the likely business impact
+- the next recommended step
+
+From that list, the manager can open a deeper explanation, compare two contracts, or assign follow-up work.
+
+## Failure-Recovery Sequence
+
+1. The ranking engine detects missing data from one region.
+2. The list still renders, but it marks that the ranking is partial rather than complete.
+3. Affected items show reduced confidence in ordering.
+4. The user can filter to fully supported items, inspect the missing input, or reopen the ranking once the data refresh completes.
+5. The system should not silently keep the original ordering as if nothing happened.
 
 ## Anti-Patterns
 
 - Opaque ranking logic
-- Too many recommendations — more than ten becomes a list, not a recommendation
-- Mixing opportunity, risk, and service items in one undifferentiated list
+- Too many recommendations, which turns a recommendation into a search result list
+- Mixing opportunity, risk, and service items in one undifferentiated stack
 - Using one score to stand in for all nuance
+- Turning a recommendation list into soft coercion with no dismissal or challenge path
 
 ## Failure Modes
 
 - Users ignore recommendations because they feel arbitrary
 - Users follow recommendations blindly without reviewing context
 - Teams treat ranking as sufficient when comparison is actually needed
+- The list becomes noisy because weak and strong recommendations are visually equal
 
 ## Private Banking Translation
 
-An advisor sees a prioritized list of households for outreach based on liquidity events, inactivity, meeting recency, and upcoming maturities — each with a short explanation of why they appear.
+An advisor sees a prioritized list of households for outreach based on liquidity events, inactivity, meeting recency, and upcoming maturities.
 
-In private banking, the Recommendation List pattern is the standard surface for daily book management, next-best-action prioritization, and opportunity triage. The ranking must be transparent and explainable — advisors regularly need to defend or share their outreach logic with supervisors or team leads. Avoid mixing relationship-risk items with pure opportunity items in the same list without clear category separation.
+This pattern is the standard surface for daily book management, next-best-action prioritization, and opportunity triage. The ranking must be transparent and explainable. Advisors often need to defend their outreach logic to supervisors or team leads. Avoid mixing relationship-risk items with pure opportunity items in the same list unless the categories are clearly separated and the user can filter them independently.

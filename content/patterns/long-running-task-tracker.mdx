@@ -1,6 +1,6 @@
 ---
 title: "Long-Running Task Tracker"
-summary: "Monitors work that unfolds across time, multiple steps, or multiple actors, keeping the user informed about progress, blocking issues, and intervention points."
+summary: "A pattern for monitoring work that unfolds across time, multiple steps, or multiple actors while keeping the user informed about progress, blockers, and intervention points."
 patternFamily: "monitoring-signal"
 jobs: ["monitor", "execute", "collaborate"]
 modalities: ["text", "data-visualization"]
@@ -15,11 +15,15 @@ relatedRecipes: ["agent-plan-checkpoint-execute"]
 
 ## Definition
 
-Long-Running Task Tracker is the pattern that monitors work that unfolds across time, multiple steps, or multiple actors, and keeps the user informed about progress, blocking issues, and intervention points.
+Long-Running Task Tracker is the pattern that monitors work unfolding across time, multiple steps, or multiple actors and keeps the user informed about progress, blockers, deadlines, and intervention points.
+
+It is not just a status label. It is the pattern that preserves legibility and control when the work extends beyond a single interaction.
 
 ## Why It Matters
 
-Not all AI-supported work completes in one interaction. Some tasks continue in the background: gathering documents, monitoring cases, waiting for approvals, orchestrating steps, or checking for changes. Users must remain in control of work they cannot see in real time.
+Not all AI-supported work completes in one moment. Some tasks continue in the background: gathering documents, monitoring cases, waiting on approvals, orchestrating steps, or checking for changes over time.
+
+Users must remain in control of work they cannot see in real time. Without a tracker, background intelligence turns opaque fast.
 
 ## When to Use
 
@@ -34,16 +38,53 @@ Not all AI-supported work completes in one interaction. Some tasks continue in t
 - The task is immediate and synchronous
 - A standard notification is enough
 - The work has no meaningful intermediate states
+- The system cannot expose anything more useful than "still running"
+
+## Selection Boundary
+
+Use **Guided Flow** when the user is actively moving through a visible sequence of steps.
+
+Use **Long-Running Task Tracker** when the work continues across time, handoffs, or background execution.
+
+Use **Proactive Signal** when the system only needs to surface a timely alert rather than ongoing task state.
+
+Use **Audit / History View** when the user is reconstructing what already happened rather than managing what is still in motion.
 
 ## Inputs and Minimum Context
 
-The pattern needs: task identity, current status, dependencies, next milestone, blockers, responsible actor, and timeout or SLA window.
+The pattern needs:
+
+- task identity
+- current status
+- dependencies
+- next milestone
+- blockers
+- responsible actor
+- timeout or SLA window
+
+Helpful context:
+
+- approval state
+- prior interventions
+- last successful action
+- escalation path
 
 ## Core Interaction Anatomy
 
 - **Trigger:** User starts a multi-step task or the system initiates ongoing work
-- **Output:** Status summary, progress stage, blocker visibility, and expected next step
+- **Output:** Status summary, progress stage, blocker visibility, expected next step, and responsible owner
 - **Controls:** Inspect, pause, cancel, reassign, remind, or escalate
+- **Visibility rule:** The tracker should show what the system is doing now, not just what the task is called
+
+## Strong Implementation Markers
+
+A strong Long-Running Task Tracker:
+
+- makes background work legible without forcing the user into constant monitoring
+- shows blockers with specific causes, not generic delay language
+- distinguishes waiting on system, waiting on user, and waiting on another actor
+- preserves context across pauses and handoffs
+- gives the user meaningful intervention paths when the task is stuck or drifting
 
 ## Pattern States
 
@@ -51,7 +92,7 @@ The pattern needs: task identity, current status, dependencies, next milestone, 
 |---|---|
 | **Queued** | Task waiting to begin |
 | **In progress** | Active steps running |
-| **Waiting on dependency** | Blocked by external input |
+| **Waiting on dependency** | Blocked by external input or another actor |
 | **Blocked** | Cannot proceed without intervention |
 | **Needs user input** | User action required to continue |
 | **Completed** | All steps done |
@@ -61,37 +102,59 @@ The pattern needs: task identity, current status, dependencies, next milestone, 
 ## Trust and Governance Requirements
 
 The tracker must make clear:
-- What the system is doing
-- What it is waiting on
-- What the user can still control
-- Whether the system is continuing autonomously in the background
+
+- what the system is doing
+- what it is waiting on
+- what the user can still control
+- whether the system is continuing autonomously in the background
+- what happens if the task misses a deadline or enters an exception state
 
 ## Surface and Modality Variants
 
-- **Feed or stream** — for ongoing awareness of multiple tasks
-- **Sidebar** — for contextual tracking tied to current workflow
-- **Workspace** — for detailed orchestration with full visibility
-- **Notification** — only for key milestones or blocking events
+- **Feed or stream** - for ongoing awareness across multiple tasks
+- **Sidebar** - for contextual tracking tied to current workflow
+- **Workspace** - for detailed orchestration with full visibility
+- **Notification** - only for key milestones or blocking events
 
 ## Enterprise Example
 
-An operations AI tracks a vendor onboarding process across document collection, security review, finance checks, and approval routing — surfacing blockers and next deadlines as they arise.
+An operations AI tracks a vendor onboarding process across document collection, security review, finance checks, and approval routing.
+
+The tracker shows:
+
+- current stage
+- current owner
+- blocker reason if stalled
+- next deadline
+- next expected milestone
+
+From the tracker, the user can reassign ownership, request an update, or escalate a blocking issue.
+
+## Failure-Recovery Sequence
+
+1. A multi-step onboarding process stalls because a finance approval is overdue.
+2. The tracker changes from **In progress** to **Waiting on dependency** and names the blocked step explicitly.
+3. The user sees who owns the blocked step, how long it has been waiting, and what deadline is now at risk.
+4. The UI offers concrete recovery actions: remind owner, reassign, escalate, or pause dependent downstream steps.
+5. Once the dependency clears, the tracker preserves the interruption history rather than hiding the stall.
 
 ## Anti-Patterns
 
 - Showing only "in progress" with no meaningful status
-- No blocker explanation — user cannot tell what to do
-- No intervention path — user cannot pause or reassign
+- No blocker explanation
+- No intervention path
 - Task disappears after the user leaves the screen
+- Progress bar theater with no real representation of task state
 
 ## Failure Modes
 
 - Users lose confidence because the task feels invisible
 - Background work continues beyond what users expected
 - The pattern becomes a passive log instead of an active management surface
+- Multiple actors assume someone else owns the next step
 
 ## Private Banking Translation
 
-A banker starts a document-completion process for a review package. The tracker shows which forms are collected, which approvals are pending, what client inputs are still missing, and whether the package is ready for the next meeting.
+A banker starts a document-completion process for a review package. The tracker shows which forms are collected, which approvals are pending, what client inputs are still missing, who owns the current step, and whether the package is ready for the next meeting.
 
-Long-Running Task Tracker is the connective tissue for multi-step private banking workflows: onboarding completion, periodic review packages, service escalations, referral handoffs, and document collection processes. These tasks routinely span days, involve multiple people (advisor, service team, specialist, supervisor, client), and have hard deadlines. The tracker must show who is responsible for each step, what is blocking, and when action is needed — not just a progress bar.
+Long-Running Task Tracker is the connective tissue for multi-step private banking workflows: onboarding completion, periodic review packages, service escalations, referral handoffs, and document collection processes. These tasks routinely span days, involve multiple people, and have hard deadlines. The tracker must show responsibility, blocker cause, and intervention options, not just a progress bar.
